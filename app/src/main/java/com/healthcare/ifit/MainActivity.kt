@@ -133,11 +133,11 @@ class MainActivity : ComponentActivity() {
                              )
                          }
 
-//                         composable("bmical"){
-//                             BMIScreen(
-//                                 viewModel = viewModel()
-//                             )
-//                         }
+                         composable("bmical"){
+                             BMIScreen(
+                                 viewModel = viewModel()
+                             )
+                         }
 
                     }
                 }
