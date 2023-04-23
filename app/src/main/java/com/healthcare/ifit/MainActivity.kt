@@ -18,6 +18,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
 
@@ -33,115 +34,130 @@ class MainActivity : ComponentActivity() {
     }
 
 
-     override fun onCreate(savedInstanceState: Bundle?) {
-         super.onCreate(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
-         setContent{
+        setContent{
 
-             IFITTheme{
+            IFITTheme{
 
-                 Surface (
-                     modifier = Modifier.fillMaxSize()
-                         )
-                 {
+                Surface (
+                    modifier = Modifier.fillMaxSize()
+                )
+                {
 
-                     val navController = rememberNavController()
+                    val navController = rememberNavController()
 
 
-                     NavHost(navController = navController, startDestination = "greeting") {
+                    NavHost(navController = navController, startDestination = "sign_in") {
 
-                         composable("greeting") {
-                             Greeting(drawableResId = R.drawable.greetings,
-                                 onNavigateToLogin = {navController.navigate("sign_in")}
-                             )
 
-                         }
+                        composable("sign_in") {
+                            val viewModel = viewModel<SignInViewModel>()
+                            val state by viewModel.state.collectAsStateWithLifecycle()
 
-                         composable("sign_in") {
-                             val viewModel = viewModel<SignInViewModel>()
-                             val state by viewModel.state.collectAsStateWithLifecycle()
+                            val launcher = rememberLauncherForActivityResult(
+                                contract = ActivityResultContracts.StartIntentSenderForResult(),
+                                onResult = { result ->
+                                    if(result.resultCode == RESULT_OK) {
+                                        lifecycleScope.launch {
+                                            val signInResult = googleAuthUiClient.signInWithIntent(
+                                                intent = result.data ?: return@launch
+                                            )
+                                            viewModel.onSignInResult(signInResult)
+                                        }
+                                    }
+                                }
+                            )
 
-                             val launcher = rememberLauncherForActivityResult(
-                                 contract = ActivityResultContracts.StartIntentSenderForResult(),
-                                 onResult = { result ->
-                                     if(result.resultCode == RESULT_OK) {
-                                         lifecycleScope.launch {
-                                             val signInResult = googleAuthUiClient.signInWithIntent(
-                                                 intent = result.data ?: return@launch
-                                             )
-                                             viewModel.onSignInResult(signInResult)
-                                         }
-                                     }
-                                 }
-                             )
+                            LaunchedEffect(key1 = Unit) {
+                                if(googleAuthUiClient.getSignedInUser() != null) {
+                                    navController.navigate("HomeScreen")
+                                }
+                            }
 
-                             LaunchedEffect(key1 = Unit) {
-                                 if(googleAuthUiClient.getSignedInUser() != null) {
-                                     navController.navigate("HomeScreen")
-                                 }
-                             }
+                            LaunchedEffect(key1 = state.isSignInSuccessful) {
+                                if(state.isSignInSuccessful) {
+                                    Toast.makeText(
+                                        applicationContext,
+                                        "Sign in successful",
+                                        Toast.LENGTH_LONG
+                                    ).show()
 
-                             LaunchedEffect(key1 = state.isSignInSuccessful) {
-                                 if(state.isSignInSuccessful) {
-                                     Toast.makeText(
-                                         applicationContext,
-                                         "Sign in successful",
-                                         Toast.LENGTH_LONG
-                                     ).show()
+                                    navController.navigate("homescreen")
+                                    viewModel.resetState()
 
-                                     navController.navigate("homescreen")
-                                     viewModel.resetState()
+                                }
+                            }
 
-                                 }
-                             }
+                            SignInScreen(
+                                state = state,
+                                onSignInClick = {
+                                    lifecycleScope.launch {
+                                        val signInIntentSender = googleAuthUiClient.signIn()
+                                        launcher.launch(
+                                            IntentSenderRequest.Builder(
+                                                signInIntentSender ?: return@launch
+                                            ).build()
+                                        )
+                                    }
+                                }
+                            )
+                        }
 
-                             SignInScreen(
-                                 state = state,
-                                 onSignInClick = {
-                                     lifecycleScope.launch {
-                                         val signInIntentSender = googleAuthUiClient.signIn()
-                                         launcher.launch(
-                                             IntentSenderRequest.Builder(
-                                                 signInIntentSender ?: return@launch
-                                             ).build()
-                                         )
-                                     }
-                                 }
-                             )
-                         }
+                        composable("homescreen") {
+                            HomeScreen(
+                                userData = googleAuthUiClient.getSignedInUser(),
+                                onSignOut = {
+                                    lifecycleScope.launch {
+                                        googleAuthUiClient.signOut()
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Signed out",
+                                            Toast.LENGTH_LONG
+                                        ).show()
 
-                         composable("homescreen") {
-                             HomeScreen(
-                                 userData = googleAuthUiClient.getSignedInUser(),
-                                 onSignOut = {
-                                     lifecycleScope.launch {
-                                         googleAuthUiClient.signOut()
-                                         Toast.makeText(
-                                             applicationContext,
-                                             "Signed out",
-                                             Toast.LENGTH_LONG
-                                         ).show()
+                                        navController.popBackStack()
+                                    }
+                                },
 
-                                         navController.popBackStack()
-                                     }
-                                 },
+                                onBMIcal = {
+                                    navController.navigate("bmical")
+                                },
 
-                                 onBMIcal = {
-                                     navController.navigate("bmical")
-                                 }
+                                onWater = {
 
-                             )
-                         }
+                                    navController.navigate("water")
+                                },
 
-                         composable("bmical"){
-                             BMIScreen(
-                                 viewModel = viewModel()
-                             )
-                         }
+                                onMedicine ={
+                                    navController.navigate("medicine")
+                                }
+
+                            )
+                        }
+
+                        composable("bmical"){
+                            BMIScreen(
+                                viewModel = viewModel()
+                            )
+                        }
+
+                        composable("water"){
+                            WaterTracker()
+                        }
+
+                        composable("medicine"){
+                            Reminder(
+                                onHome = { navController.popBackStack()
+                                }
+                            )
+
+                        }
 
                     }
                 }
-             }
-         }
-     }
+            }
+        }
+    }
 }

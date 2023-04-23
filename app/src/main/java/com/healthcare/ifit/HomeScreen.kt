@@ -23,7 +23,9 @@ import coil.compose.AsyncImage
 fun HomeScreen(
     userData: UserData?,
     onSignOut: () -> Unit,
-    onBMIcal: ()-> Unit
+    onBMIcal: ()-> Unit,
+    onWater: ()-> Unit,
+    onMedicine: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -57,6 +59,17 @@ fun HomeScreen(
         Button(onClick = onBMIcal) {
             Text(text = "BMI-Calculator")
         }
+
+        Button(onClick = onWater) {
+            Text(text = "Water-Tracker")
+        }
+
+        Button(onClick = onMedicine) {
+            Text(text = "Medicine")
+        }
+
+
+
 
     }
 
