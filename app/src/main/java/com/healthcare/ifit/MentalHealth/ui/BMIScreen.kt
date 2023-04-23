@@ -1,8 +1,7 @@
-package com.healthcare.ifit
+package com.healthcare.ifit.MentalHealth.ui
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.style.BackgroundColorSpan
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.animation.Crossfade
@@ -21,7 +20,20 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.healthcare.ifit.BMIViewModel
+import com.healthcare.ifit.UserAction
+import com.healthcare.ifit.features.BMIResultCard
+import com.healthcare.ifit.features.BottomSheetContent
+import com.healthcare.ifit.features.InputUnitValue
+import com.healthcare.ifit.features.NumberKeyboard
+import com.healthcare.ifit.features.ShareButton
+import com.healthcare.ifit.features.SymbolButton
+import com.healthcare.ifit.features.SymbolButtonWithIcon
+import com.healthcare.ifit.features.UnitItem
 import com.healthcare.ifit.ui.theme.*
+import com.healthcare.ifit.uiState.BMIScreenState
+import com.healthcare.ifit.uiState.HeightValueStage
+import com.healthcare.ifit.uiState.WeightValueStage
 import kotlinx.coroutines.launch
 
 

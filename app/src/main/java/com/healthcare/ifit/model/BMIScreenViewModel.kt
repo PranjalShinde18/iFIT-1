@@ -6,6 +6,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.healthcare.ifit.uiState.BMIScreenState
+import com.healthcare.ifit.uiState.HeightValueStage
+import com.healthcare.ifit.uiState.WeightValueStage
 import kotlin.math.roundToInt
 
 class BMIViewModel : ViewModel() {

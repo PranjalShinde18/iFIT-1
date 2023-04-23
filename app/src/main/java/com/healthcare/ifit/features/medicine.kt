@@ -1,4 +1,4 @@
-package com.healthcare.ifit
+package com.healthcare.ifit.features
 
 import android.os.Build
 import android.os.Bundle

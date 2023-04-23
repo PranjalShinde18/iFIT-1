@@ -1,4 +1,4 @@
-package com.healthcare.ifit
+package com.healthcare.ifit.features
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -28,6 +28,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.healthcare.ifit.R
 import com.healthcare.ifit.ui.theme.IFITTheme
 
 class Water : ComponentActivity() {
