@@ -1,8 +1,7 @@
-<<<<<<< HEAD
-package com.healthcare.ifit.MentalHealth.ui
-=======
 
 package com.healthcare.ifit.mentalhealth.ui
+
+
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -252,4 +251,3 @@ fun MentalScreenPreview() {
 }
 
 
->>>>>>> 18ef3eca2ec19d73cf8b923099f134b4c96142b7

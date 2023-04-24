@@ -21,17 +21,12 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-<<<<<<< HEAD
-import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
-=======
-import com.healthcare.ifit.mentalhealth.ui.MentalScreen
-import com.healthcare.ifit.MentalHealth.ui.SleepScreen
->>>>>>> 18ef3eca2ec19d73cf8b923099f134b4c96142b7
 import com.healthcare.ifit.features.BMIScreen
 import com.healthcare.ifit.features.Reminder
 import com.healthcare.ifit.features.WaterTracker
-import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
 import com.healthcare.ifit.mentalhealth.Timer
+import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
+import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
 import com.healthcare.ifit.model.SignInViewModel
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
@@ -54,11 +49,8 @@ class MainActivity : ComponentActivity() {
                     val navController = rememberNavController()
 
                     NavHost(navController = navController, startDestination = "gauth") {
-
                         composable("gauth") {
-
                             navController.navigate("sign_in")
-
                         }
 
                         composable("sign_in") {
@@ -119,9 +111,6 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-
-
-
                         composable("homescreen") {
                             HomeScreen(
                                 userData = googleAuthUiClient.getSignedInUser(),
@@ -153,11 +142,13 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+
                         composable("bmical"){
                             BMIScreen(
                                 viewModel = viewModel()
                             )
                         }
+
                         composable("water"){
                             WaterTracker()
                         }
@@ -174,6 +165,7 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
+
                         composable("inputScreen"){
                             InputScreen(onNextClick = {
                                 navController.navigate("homescreen")

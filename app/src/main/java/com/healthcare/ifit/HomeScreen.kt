@@ -27,11 +27,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-<<<<<<< HEAD
-
-=======
-import com.healthcare.ifit.ui.theme.IFITTheme
->>>>>>> 18ef3eca2ec19d73cf8b923099f134b4c96142b7
 
 
 @Composable
