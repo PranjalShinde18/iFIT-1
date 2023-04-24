@@ -1,7 +1,5 @@
 package com.healthcare.ifit
 
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -10,16 +8,10 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-<<<<<<< HEAD
-import androidx.compose.material.Button
-=======
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomAppBar
->>>>>>> 1cb72a058c866410f6a47b7e689c22bcc97fd234
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
@@ -33,10 +25,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImagePainter.State.Empty.painter
-import com.healthcare.ifit.ui.theme.IFITTheme
+
 
 
 @Composable
@@ -106,6 +96,7 @@ fun HomeScreenUi() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
@@ -217,71 +208,3 @@ fun HomeScreenUi() {
 
 
 }
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    IFITTheme {
-        HomeScreen(
-            userData = null,
-            onSignOut = {},
-            onBMIcal = {},
-            onWater = {},
-        onMedicine = {})
-
-        {
-
-        }
-    }
-}
-
-
-//if (userData?.profilePictureUrl != null) {
-//    AsyncImage(
-//        model = userData.profilePictureUrl,
-//        contentDescription = "Profile picture",
-//        modifier = Modifier
-//            .size(150.dp)
-//            .clip(CircleShape),
-//        contentScale = ContentScale.Crop
-//    )
-//    Spacer(modifier = Modifier.height(16.dp))
-//}
-//    if (userData?.profilePictureUrl != null) {
-//        AsyncImage(
-//            model = userData.profilePictureUrl,
-//            contentDescription = "Profile picture",
-//            modifier = Modifier
-//                .size(150.dp)
-//                .clip(CircleShape),
-//            contentScale = ContentScale.Crop
-//        )
-//        Spacer(modifier = Modifier.height(16.dp))
-//    }
-//    if (userData?.username != null) {
-//        Text(
-//            text = userData.username,
-//            textAlign = TextAlign.Center,
-//            fontSize = 36.sp,
-//            fontWeight = FontWeight.SemiBold
-//        )
-//        Spacer(modifier = Modifier.height(16.dp))
-//    }
-//    Button(onClick = onSignOut) {
-//        Text(text = "Sign out")
-//    }
-//
-//    Button(onClick = onBMIcal) {
-//        Text(text = "BMI-Calculator")
-//    }
-//
-//    Button(onClick = onWater) {
-//        Text(text = "Water-Tracker")
-//    }
-//
-//    Button(onClick = onMedicine) {
-//        Text(text = "Medicine")
-//    }
-//}

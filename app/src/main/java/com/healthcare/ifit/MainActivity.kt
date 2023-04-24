@@ -21,8 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.healthcare.ifit.MentalHealth.ui.MentalScreen
-import com.healthcare.ifit.MentalHealth.ui.SleepScreen
+
 import com.healthcare.ifit.features.BMIScreen
 import com.healthcare.ifit.features.Reminder
 import com.healthcare.ifit.features.WaterTracker
@@ -69,7 +68,7 @@ class MainActivity : ComponentActivity() {
                             )
                             LaunchedEffect(key1 = Unit) {
                                 if(googleAuthUiClient.getSignedInUser() != null) {
-                                    navController.navigate("HomeScreen")
+                                    navController.navigate("inputscreen")
                                 }
                             }
                             LaunchedEffect(key1 = state.isSignInSuccessful) {
@@ -96,7 +95,7 @@ class MainActivity : ComponentActivity() {
                                             ).build()
                                         )
                                     }
-                                    navController.navigate("homescreen")
+//                                    navController.navigate("homescreen")
 
                                     navController.navigate("inputScreen")
 
@@ -150,16 +149,16 @@ class MainActivity : ComponentActivity() {
 
                         composable("Mental"){
 
-                            MentalScreen(
-
-                                onMeditation = {
-                                    navController.navigate("meditate")
-                                },
-
-                                onSleep = {
-                                    navController.navigate("Sleep")
-                                }
-                            )
+//                            MentalScreen(
+//
+//                                onMeditation = {
+//                                    navController.navigate("meditate")
+//                                },
+//
+//                                onSleep = {
+//                                    navController.navigate("Sleep")
+//                                }
+//                            )
                         }
 
                         composable("meditate"){
@@ -198,11 +197,11 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-                        composable("Sleep"){
-                            SleepScreen(
-
-                            )
-                        }
+//                        composable("Sleep"){
+//                            SleepScreen(
+//
+//                            )
+//                        }
 
                         composable("medicine"){
                             Reminder(
@@ -211,7 +210,9 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("inputScreen"){
-                            InputScreen()
+                            InputScreen(onNextClick = {
+                                navController.navigate("homescreen")
+                            })
                         }
                     }
                 }

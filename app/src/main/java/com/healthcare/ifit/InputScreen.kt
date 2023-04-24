@@ -24,7 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -33,6 +32,7 @@ import com.healthcare.ifit.realtimedb.User
 //@Preview(showBackground = true)
 @Composable
 fun InputScreen(
+    onNextClick : ()-> Unit
 ) {
 
     val context = LocalContext.current
@@ -106,10 +106,15 @@ fun InputScreen(
                               userweight = ""
                               Toast.makeText(context,"Record inserted",Toast.LENGTH_LONG).show()
 
+
+                              onNextClick()
+
+
                           }
                               .addOnFailureListener {
                                   Toast.makeText(context,"Record not inserted",Toast.LENGTH_LONG).show()
                               }
+
 
                       } else {
                           Toast.makeText(context,"Pls insert values" ,Toast.LENGTH_LONG).show()
