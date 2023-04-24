@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.Woof" parent="android:style/Theme.Material.NoActionBar">
-        <item name="android:statusBarColor">@color/grey_900</item>
+    <style name="Theme.IFIT" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/black_100</item>
     </style>
 </resources>
