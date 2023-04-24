@@ -74,7 +74,7 @@ class MainActivity : ComponentActivity() {
                                         Toast.LENGTH_LONG
                                     ).show()
 
-                                    navController.navigate("homescreen")
+                                    navController.navigate("inputScreen")
                                     viewModel.resetState()
 
                                 }
@@ -90,6 +90,7 @@ class MainActivity : ComponentActivity() {
                                             ).build()
                                         )
                                     }
+                                    navController.navigate("inputScreen")
                                 }
                             )
                         }
@@ -131,6 +132,9 @@ class MainActivity : ComponentActivity() {
                                 onHome = { navController.popBackStack()
                                 }
                             )
+                        }
+                        composable("inputScreen"){
+                            InputScreen(onDoneClick = { navController.navigate("homescreen") })
                         }
                     }
                 }
