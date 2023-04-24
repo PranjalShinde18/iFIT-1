@@ -27,22 +27,21 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-<<<<<<< HEAD
-
-=======
-import com.healthcare.ifit.ui.theme.IFITTheme
->>>>>>> 18ef3eca2ec19d73cf8b923099f134b4c96142b7
-
 
 @Composable
 fun HomeScreen(
-    userData: UserData?,
+
     onSignOut: () -> Unit,
     onBMIcal: ()-> Unit,
     onWater: ()-> Unit,
     onMedicine: () -> Unit,
-    onMentalHealth: () -> Unit,
-    onSleep: () -> Unit
+    onSleep: () -> Unit,
+
+    onHomeSc: () -> Unit,
+    onPHSc: () -> Unit,
+    onMHSc: () -> Unit,
+    onPrSc: () -> Unit
+
 ) {
     Scaffold(
         bottomBar = {
@@ -61,28 +60,28 @@ fun HomeScreen(
                         contentDescription = "Home",
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)
-                            .clickable {  }
+                            .clickable { onHomeSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.workout),
                         contentDescription = "Workout",
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)
-                            .clickable {  }
+                            .clickable { onPHSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.medition),
                         contentDescription = "Meditation",
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)
-                            .clickable {  }
+                            .clickable { onMHSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.profile),
                         contentDescription = "Profile",
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)
-                            .clickable {  }
+                            .clickable { onPrSc?.invoke() }
                     )
                 }
             }

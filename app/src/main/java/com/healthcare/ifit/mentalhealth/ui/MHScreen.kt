@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-package com.healthcare.ifit.MentalHealth.ui
-=======
-
 package com.healthcare.ifit.mentalhealth.ui
 
 import androidx.compose.foundation.clickable
@@ -31,16 +27,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.healthcare.ifit.R
-import com.healthcare.ifit.ui.theme.IFITTheme
 
 @Composable
 
 fun MentalScreen(
     onMeditation: () -> Unit,
     onSleep: () -> Unit,
+
+    onHomeSc: () -> Unit,
+    onPHSc: () -> Unit,
+    onMHSc: () -> Unit,
+    onPrSc: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -59,24 +58,28 @@ fun MentalScreen(
                         contentDescription = "Home",
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)
+                            .clickable { onHomeSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.workout),
                         contentDescription = "Workout",
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)
+                            .clickable { onPHSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.medition),
                         contentDescription = "Meditation",
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)
+                            .clickable { onMHSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.profile),
                         contentDescription = "Profile",
                         tint = Color.White,
                         modifier = Modifier.size(40.dp)
+                            .clickable { onPrSc?.invoke() }
                     )
                 }
             }
@@ -239,17 +242,3 @@ fun MHScreenUi (
         
     }
 }
-
-@Preview (showBackground = false)
-@Composable
-fun MentalScreenPreview() {
-    IFITTheme() {
-        MentalScreen(
-            onMeditation = {},
-            onSleep = {}
-        )
-    }
-}
-
-
->>>>>>> 18ef3eca2ec19d73cf8b923099f134b4c96142b7

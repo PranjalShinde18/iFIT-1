@@ -21,17 +21,13 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-<<<<<<< HEAD
-import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
-=======
-import com.healthcare.ifit.mentalhealth.ui.MentalScreen
-import com.healthcare.ifit.MentalHealth.ui.SleepScreen
->>>>>>> 18ef3eca2ec19d73cf8b923099f134b4c96142b7
 import com.healthcare.ifit.features.BMIScreen
 import com.healthcare.ifit.features.Reminder
 import com.healthcare.ifit.features.WaterTracker
 import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
 import com.healthcare.ifit.mentalhealth.Timer
+import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
+import com.healthcare.ifit.mentalhealth.ui.MentalScreen
 import com.healthcare.ifit.model.SignInViewModel
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
@@ -53,7 +49,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
-                    NavHost(navController = navController, startDestination = "gauth") {
+                    NavHost(navController = navController, startDestination = "homescreen") {
 
                         composable("gauth") {
 
@@ -120,11 +116,8 @@ class MainActivity : ComponentActivity() {
                         }
 
 
-
-
                         composable("homescreen") {
                             HomeScreen(
-                                userData = googleAuthUiClient.getSignedInUser(),
                                 onSignOut = {
                                     lifecycleScope.launch {
                                         googleAuthUiClient.signOut()
@@ -145,14 +138,53 @@ class MainActivity : ComponentActivity() {
                                 onMedicine ={
                                     navController.navigate("Medicine")
                                 },
-                                onMentalHealth = {
-                                    navController.navigate("Mental")
+
+                                onSleep = {
+
+                                },
+
+
+                                onHomeSc = {
+                                           navController.navigate("homescreen")
+                                },
+                                onPHSc = {
+                                         navController.navigate("PhysicalHealth")
+                                },
+                                onMHSc = {
+                                         navController.navigate("MentalHealth")
+                                },
+                                onPrSc = {
+                                         navController.navigate("ProfileScreen")
+                                },
+                            )
+                        }
+
+                        composable("MentalHealth"){
+                            MentalScreen(
+                                onMeditation = {
+                                               navController.navigate("meditate")
                                 },
                                 onSleep = {
                                     navController.navigate("sleeppp")
+                                },
+
+                                onHomeSc = {
+                                    navController.navigate("homescreen")
+                                },
+                                onPHSc = {
+                                    navController.navigate("PhysicalHealth")
+                                },
+                                onMHSc = {
+                                    navController.navigate("MentalHealth")
+                                },
+                                onPrSc = {
+                                    navController.navigate("ProfileScreen")
                                 }
+
+
                             )
                         }
+
                         composable("bmical"){
                             BMIScreen(
                                 viewModel = viewModel()
