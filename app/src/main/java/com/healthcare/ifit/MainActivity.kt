@@ -1,5 +1,6 @@
 package com.healthcare.ifit
 
+
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -20,43 +21,35 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.healthcare.ifit.MentalHealth.MeditationScreenUi
 import com.healthcare.ifit.MentalHealth.ui.MentalScreen
 import com.healthcare.ifit.MentalHealth.ui.SleepScreen
-import com.healthcare.ifit.MentalHealth.ui.Timer
+import com.healthcare.ifit.features.BMIScreen
+import com.healthcare.ifit.features.Reminder
+import com.healthcare.ifit.features.WaterTracker
+import com.healthcare.ifit.mentalhealth.MeditationScreenUi
+import com.healthcare.ifit.mentalhealth.Timer
+import com.healthcare.ifit.model.SignInViewModel
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
-
     private val googleAuthUiClient by lazy {
-
         GoogleAuthUiClient(
             context = applicationContext,
             oneTapClient = com.google.android.gms.auth.api.identity.Identity.getSignInClient(applicationContext)
         )
-
     }
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContent{
-
             IFITTheme{
-
                 Surface (
                     modifier = Modifier.fillMaxSize()
-                )
-                {
-
+                ) {
                     val navController = rememberNavController()
 
-
                     NavHost(navController = navController, startDestination = "sign_in") {
-
-
                         composable("sign_in") {
                             val viewModel = viewModel<SignInViewModel>()
                             val state by viewModel.state.collectAsStateWithLifecycle()
@@ -74,13 +67,11 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             )
-
                             LaunchedEffect(key1 = Unit) {
                                 if(googleAuthUiClient.getSignedInUser() != null) {
                                     navController.navigate("HomeScreen")
                                 }
                             }
-
                             LaunchedEffect(key1 = state.isSignInSuccessful) {
                                 if(state.isSignInSuccessful) {
                                     Toast.makeText(
@@ -89,12 +80,11 @@ class MainActivity : ComponentActivity() {
                                         Toast.LENGTH_LONG
                                     ).show()
 
-                                    navController.navigate("homescreen")
+                                    navController.navigate("inputScreen")
                                     viewModel.resetState()
 
                                 }
                             }
-
                             SignInScreen(
                                 state = state,
                                 onSignInClick = {
@@ -107,11 +97,13 @@ class MainActivity : ComponentActivity() {
                                         )
                                     }
                                     navController.navigate("homescreen")
+
+                                    navController.navigate("inputScreen")
+
                                 }
 
                             )
                         }
-
                         composable("homescreen") {
                             HomeScreen(
                                 userData = googleAuthUiClient.getSignedInUser(),
@@ -123,36 +115,28 @@ class MainActivity : ComponentActivity() {
                                             "Signed out",
                                             Toast.LENGTH_LONG
                                         ).show()
-
                                         navController.popBackStack()
                                     }
                                 },
-
                                 onBMIcal = {
                                     navController.navigate("bmical")
                                 },
-
                                 onWater = {
-
                                     navController.navigate("water")
                                 },
-
                                 onMedicine ={
                                     navController.navigate("Medicine")
                                 },
                                 onMentalHealth = {
                                     navController.navigate("Mental")
                                 }
-
                             )
                         }
-
                         composable("bmical"){
                             BMIScreen(
                                 viewModel = viewModel()
                             )
                         }
-
                         composable("water"){
                             WaterTracker()
                         }
@@ -220,8 +204,15 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-
-
+                        composable("medicine"){
+                            Reminder(
+                                onHome = { navController.popBackStack()
+                                }
+                            )
+                        }
+                        composable("inputScreen"){
+                            InputScreen()
+                        }
                     }
                 }
             }

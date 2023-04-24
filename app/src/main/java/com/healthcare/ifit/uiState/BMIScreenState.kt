@@ -1,4 +1,4 @@
-package com.healthcare.ifit
+package com.healthcare.ifit.uiState
 
 data class BMIScreenState(
     val weightValue: String= "60",

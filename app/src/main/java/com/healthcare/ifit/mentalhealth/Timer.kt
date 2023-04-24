@@ -1,4 +1,4 @@
-package com.healthcare.ifit.MentalHealth.ui
+package com.healthcare.ifit.mentalhealth
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -79,17 +79,19 @@ fun Timer(
         mutableStateOf(false)
     }
     LaunchedEffect(key1 = currentTime, key2 = isTimerRunning) {
-        if(currentTime > 0 && isTimerRunning) {
+        if (currentTime > 0 && isTimerRunning) {
             delay(100L)
             currentTime -= 100L
             value = currentTime / totalTime.toFloat()
         }
     }
 
-    Column(modifier = Modifier
-        .fillMaxSize(),
+    Column(
+        modifier = Modifier
+            .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center) {
+        verticalArrangement = Arrangement.Center
+    ) {
 
 
         Box(

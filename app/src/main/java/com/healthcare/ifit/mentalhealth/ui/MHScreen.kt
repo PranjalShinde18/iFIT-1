@@ -1,3 +1,4 @@
+
 package com.healthcare.ifit.MentalHealth.ui
 
 import androidx.compose.foundation.Image
@@ -89,10 +90,4 @@ fun MentalScreen(
         }
 
     }
-}
-
-@Preview (showBackground = true)
-@Composable
-fun MentalScreenPreview() {
-    MentalScreen(onMeditation = {}, onSleep = {})
 }

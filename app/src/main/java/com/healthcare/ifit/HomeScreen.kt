@@ -1,23 +1,25 @@
 package com.healthcare.ifit
 
-import android.graphics.fonts.FontStyle
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
+import androidx.compose.material.Card
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import coil.compose.AsyncImage
+import com.healthcare.ifit.ui.theme.IFITTheme
+
 
 @Composable
 fun HomeScreen(
@@ -28,55 +30,148 @@ fun HomeScreen(
     onMedicine: () -> Unit,
     onMentalHealth: () -> Unit
 ) {
+    Scaffold(
+        bottomBar = {}
+    ) {
+        it
+        HomeScreenUi()
+    }
+
+}
+
+@Composable
+fun HomeScreenUi() {
     Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.Center,
+        modifier = Modifier.fillMaxSize()
+            .padding(8.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        if (userData?.profilePictureUrl != null) {
-            AsyncImage(
-                model = userData.profilePictureUrl,
-                contentDescription = "Profile picture",
-                modifier = Modifier
-                    .size(150.dp)
-                    .clip(CircleShape),
-                contentScale = ContentScale.Crop
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        if (userData?.username != null) {
-            Text(
-                text = userData.username,
-                textAlign = TextAlign.Center,
-                fontSize = 36.sp,
-                fontWeight = FontWeight.SemiBold
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-        }
-        Button(onClick = onSignOut) {
-            Text(text = "Sign out")
-        }
+        Card(
+            modifier = Modifier.fillMaxWidth()
+        ) {
+            Column(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(16.dp, top = 0.dp, bottom = 16.dp),
+                verticalArrangement = Arrangement.Center
+            ) {
 
-        Button(onClick = onBMIcal) {
-            Text(text = "BMI-Calculator")
+                Text(
+                    text = "Hello",
+                    style = MaterialTheme.typography.h1,
+                    fontWeight = FontWeight.W400,
+                    textAlign = TextAlign.Start
+                )
+
+                Text(
+                    text = "Pranjal Shinde!!",
+                    style = MaterialTheme.typography.h4
+                )
+            }
         }
 
-        Button(onClick = onWater) {
-            Text(text = "Water-Tracker")
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+
+            Card() {
+                Text(text = "Water Intake")
+            }
+
+            Card() {
+                Text(text = "Medicine Tracker")
+            }
+
         }
 
-        Button(onClick = onMedicine) {
-            Text(text = "Medicine")
+        Row() {
+
+            Card() {
+                Text(text = "Height")
+            }
+
+            Card() {
+                Text(text = "Weight")
+            }
         }
 
-        Button(onClick = onMentalHealth) {
-            Text(text = "MentalHealth")
+        Card() {
+            Text(text = "Bmi Calculator")
         }
 
-
-
-
+        Card() {
+            Text(text = "Your Mood")
+        }
     }
 
 
 }
+
+
+
+@Preview(showBackground = true)
+@Composable
+fun HomeScreenPreview() {
+    IFITTheme {
+        HomeScreen(
+            userData = null,
+            onSignOut = {},
+            onBMIcal = {},
+            onWater = {},
+        onMedicine = {})
+
+        {
+
+        }
+    }
+}
+
+
+//if (userData?.profilePictureUrl != null) {
+//    AsyncImage(
+//        model = userData.profilePictureUrl,
+//        contentDescription = "Profile picture",
+//        modifier = Modifier
+//            .size(150.dp)
+//            .clip(CircleShape),
+//        contentScale = ContentScale.Crop
+//    )
+//    Spacer(modifier = Modifier.height(16.dp))
+//}
+//    if (userData?.profilePictureUrl != null) {
+//        AsyncImage(
+//            model = userData.profilePictureUrl,
+//            contentDescription = "Profile picture",
+//            modifier = Modifier
+//                .size(150.dp)
+//                .clip(CircleShape),
+//            contentScale = ContentScale.Crop
+//        )
+//        Spacer(modifier = Modifier.height(16.dp))
+//    }
+//    if (userData?.username != null) {
+//        Text(
+//            text = userData.username,
+//            textAlign = TextAlign.Center,
+//            fontSize = 36.sp,
+//            fontWeight = FontWeight.SemiBold
+//        )
+//        Spacer(modifier = Modifier.height(16.dp))
+//    }
+//    Button(onClick = onSignOut) {
+//        Text(text = "Sign out")
+//    }
+//
+//    Button(onClick = onBMIcal) {
+//        Text(text = "BMI-Calculator")
+//    }
+//
+//    Button(onClick = onWater) {
+//        Text(text = "Water-Tracker")
+//    }
+//
+//    Button(onClick = onMedicine) {
+//        Text(text = "Medicine")
+//    }
+//}

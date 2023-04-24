@@ -1,4 +1,4 @@
-package com.healthcare.ifit.MentalHealth
+package com.healthcare.ifit.mentalhealth
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement

@@ -1,6 +1,8 @@
-package com.healthcare.ifit
+package com.healthcare.ifit.model
 
 import androidx.lifecycle.ViewModel
+import com.healthcare.ifit.SignInResult
+import com.healthcare.ifit.uiState.SignInState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

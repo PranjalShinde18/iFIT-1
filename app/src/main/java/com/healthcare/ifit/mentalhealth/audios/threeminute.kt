@@ -17,7 +17,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
-import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -40,7 +39,7 @@ class threeminute : ComponentActivity() {
 fun playAudio(context: Context)
 {
 
-    
+
     val mp: MediaPlayer = MediaPlayer.create(context, R.raw.ic_music)
 
     Column(
@@ -71,3 +70,4 @@ fun playAudio(context: Context)
         }
     }
 }
+
