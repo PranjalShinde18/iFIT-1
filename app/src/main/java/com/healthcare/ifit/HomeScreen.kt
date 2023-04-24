@@ -25,7 +25,8 @@ fun HomeScreen(
     onSignOut: () -> Unit,
     onBMIcal: ()-> Unit,
     onWater: ()-> Unit,
-    onMedicine: () -> Unit
+    onMedicine: () -> Unit,
+    onMentalHealth: () -> Unit
 ) {
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -66,6 +67,10 @@ fun HomeScreen(
 
         Button(onClick = onMedicine) {
             Text(text = "Medicine")
+        }
+
+        Button(onClick = onMentalHealth) {
+            Text(text = "MentalHealth")
         }
 
 

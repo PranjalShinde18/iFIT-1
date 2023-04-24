@@ -8,17 +8,22 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-
+import com.healthcare.ifit.MentalHealth.MeditationScreenUi
+import com.healthcare.ifit.MentalHealth.ui.MentalScreen
+import com.healthcare.ifit.MentalHealth.ui.SleepScreen
+import com.healthcare.ifit.MentalHealth.ui.Timer
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
 
@@ -101,7 +106,9 @@ class MainActivity : ComponentActivity() {
                                             ).build()
                                         )
                                     }
+                                    navController.navigate("homescreen")
                                 }
+
                             )
                         }
 
@@ -131,7 +138,10 @@ class MainActivity : ComponentActivity() {
                                 },
 
                                 onMedicine ={
-                                    navController.navigate("medicine")
+                                    navController.navigate("Medicine")
+                                },
+                                onMentalHealth = {
+                                    navController.navigate("Mental")
                                 }
 
                             )
@@ -147,13 +157,70 @@ class MainActivity : ComponentActivity() {
                             WaterTracker()
                         }
 
-                        composable("medicine"){
-                            Reminder(
-                                onHome = { navController.popBackStack()
+                        composable("Medicine"){
+                            Reminder( onHome = {
+                                navController.popBackStack()
+                            }
+                            )
+                        }
+
+                        composable("Mental"){
+
+                            MentalScreen(
+
+                                onMeditation = {
+                                    navController.navigate("meditate")
+                                },
+
+                                onSleep = {
+                                    navController.navigate("Sleep")
                                 }
                             )
-
                         }
+
+                        composable("meditate"){
+//
+                            MeditationScreenUi(
+                                on3min = {
+                                         navController.navigate("onthreemincall")
+                                },
+                                on5min = {
+                                    navController.navigate("onfivemincall")
+                                },
+                                on10min = {
+                                    navController.navigate("ontenmincall")
+                                }
+                            )
+                        }
+
+                        composable("onthreemincall"){
+                            Timer(
+                                totalTime = 180L * 1000L,
+                                modifier = Modifier.size(200.dp)
+                            )
+                        }
+
+                        composable("onfivemincall"){
+                            Timer(
+                                totalTime = 300L * 1000L,
+                                modifier = Modifier.size(200.dp)
+                            )
+                        }
+
+                        composable("ontenmincall"){
+                            Timer(
+                                totalTime = 600L * 1000L,
+                                modifier = Modifier.size(200.dp)
+                            )
+                        }
+
+                        composable("Sleep"){
+                            SleepScreen(
+
+                            )
+                        }
+
+
 
                     }
                 }
