@@ -1,8 +1,6 @@
 package com.healthcare.ifit
 
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.gestures.Orientation
-import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,8 +10,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomAppBar
@@ -32,7 +28,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import coil.compose.AsyncImagePainter.State.Empty.painter
 import com.healthcare.ifit.ui.theme.IFITTheme
 
 
@@ -42,7 +37,8 @@ fun HomeScreen(
     onSignOut: () -> Unit,
     onBMIcal: ()-> Unit,
     onWater: ()-> Unit,
-    onMedicine: () -> Unit
+    onMedicine: () -> Unit,
+    onMentalHealth: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -226,9 +222,12 @@ fun HomeScreenPreview() {
     IFITTheme {
         HomeScreen(
             userData = null,
-            onSignOut = { /*TODO*/ },
-            onBMIcal = { /*TODO*/ },
-            onWater = { /*TODO*/ }) {
+            onSignOut = {},
+            onBMIcal = {},
+            onWater = {},
+        onMedicine = {})
+
+        {
 
         }
     }

@@ -1,5 +1,6 @@
 package com.healthcare.ifit
 
+
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -8,19 +9,25 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Surface
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.healthcare.ifit.mentalhealth.ui.MentalScreen
+import com.healthcare.ifit.MentalHealth.ui.SleepScreen
 import com.healthcare.ifit.features.BMIScreen
 import com.healthcare.ifit.features.Reminder
 import com.healthcare.ifit.features.WaterTracker
+import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
+import com.healthcare.ifit.mentalhealth.Timer
 import com.healthcare.ifit.model.SignInViewModel
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
@@ -89,8 +96,12 @@ class MainActivity : ComponentActivity() {
                                             ).build()
                                         )
                                     }
+                                    navController.navigate("homescreen")
+
                                     navController.navigate("inputScreen")
+
                                 }
+
                             )
                         }
                         composable("homescreen") {
@@ -114,7 +125,10 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("water")
                                 },
                                 onMedicine ={
-                                    navController.navigate("medicine")
+                                    navController.navigate("Medicine")
+                                },
+                                onMentalHealth = {
+                                    navController.navigate("Mental")
                                 }
                             )
                         }
@@ -126,6 +140,70 @@ class MainActivity : ComponentActivity() {
                         composable("water"){
                             WaterTracker()
                         }
+
+                        composable("Medicine"){
+                            Reminder( onHome = {
+                                navController.popBackStack()
+                            }
+                            )
+                        }
+
+                        composable("Mental"){
+
+                            MentalScreen(
+
+                                onMeditation = {
+                                    navController.navigate("meditate")
+                                },
+
+                                onSleep = {
+                                    navController.navigate("Sleep")
+                                }
+                            )
+                        }
+
+                        composable("meditate"){
+//
+                            MeditationScreenUi(
+                                on3min = {
+                                         navController.navigate("onthreemincall")
+                                },
+                                on5min = {
+                                    navController.navigate("onfivemincall")
+                                },
+                                on10min = {
+                                    navController.navigate("ontenmincall")
+                                }
+                            )
+                        }
+
+                        composable("onthreemincall"){
+                            Timer(
+                                totalTime = 180L * 1000L,
+                                modifier = Modifier.size(200.dp)
+                            )
+                        }
+
+                        composable("onfivemincall"){
+                            Timer(
+                                totalTime = 300L * 1000L,
+                                modifier = Modifier.size(200.dp)
+                            )
+                        }
+
+                        composable("ontenmincall"){
+                            Timer(
+                                totalTime = 600L * 1000L,
+                                modifier = Modifier.size(200.dp)
+                            )
+                        }
+
+                        composable("Sleep"){
+                            SleepScreen(
+
+                            )
+                        }
+
                         composable("medicine"){
                             Reminder(
                                 onHome = { navController.popBackStack()
@@ -133,7 +211,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
                         composable("inputScreen"){
-                            InputScreen(onDoneClick = { navController.navigate("homescreen") })
+                            InputScreen()
                         }
                     }
                 }

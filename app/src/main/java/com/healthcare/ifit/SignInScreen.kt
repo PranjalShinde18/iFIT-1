@@ -75,7 +75,7 @@ fun SignInScreen(
                     Text(text = "Name")
                 },
 
-            )
+                )
             Spacer(modifier = Modifier.height(0.dp))
             OutlinedTextField(
                 value = "",

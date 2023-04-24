@@ -1,9 +1,10 @@
-package com.healthcare.ifit.MentalHealth.ui
 
+package com.healthcare.ifit.mentalhealth.ui
+
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -79,12 +80,18 @@ fun MentalScreen(
         }
     ) {
         it
-        MHScreenUi ()
+        MHScreenUi (
+            onMeditation = onMeditation,
+            onSleep = onSleep
+                )
     }
 }
 
 @Composable
-fun MHScreenUi () {
+fun MHScreenUi (
+    onMeditation: () -> Unit,
+    onSleep: () -> Unit,
+) {
     val state = rememberScrollState()
     LaunchedEffect(Unit) { state.animateScrollTo(100) }
     Column(
@@ -169,6 +176,7 @@ fun MHScreenUi () {
                 .height(104.dp)
                 .aspectRatio(2.8f, true)
                 .align(Alignment.Start)
+                .clickable {onMeditation?.invoke()}
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -192,6 +200,7 @@ fun MHScreenUi () {
                 .height(104.dp)
                 .aspectRatio(2.8f, true)
                 .align(Alignment.Start)
+                .clickable {onSleep?.invoke()}
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -232,6 +241,11 @@ fun MHScreenUi () {
 @Composable
 fun MentalScreenPreview() {
     IFITTheme() {
-        MentalScreen(onMeditation = {}, onSleep = {})
+        MentalScreen(
+            onMeditation = {},
+            onSleep = {}
+        )
     }
 }
+
+
