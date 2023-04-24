@@ -59,25 +59,25 @@ fun HomeScreen(
                         painter = painterResource(id = R.drawable.home),
                         contentDescription = "Home",
                         tint = Color.White,
-                        modifier = Modifier.size(56.dp)
+                        modifier = Modifier.size(40.dp)
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.workout),
                         contentDescription = "Workout",
                         tint = Color.White,
-                        modifier = Modifier.size(56.dp)
+                        modifier = Modifier.size(40.dp)
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.medition),
                         contentDescription = "Meditation",
                         tint = Color.White,
-                        modifier = Modifier.size(56.dp)
+                        modifier = Modifier.size(40.dp)
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.profile),
                         contentDescription = "Profile",
                         tint = Color.White,
-                        modifier = Modifier.size(56.dp)
+                        modifier = Modifier.size(40.dp)
                     )
                 }
             }
