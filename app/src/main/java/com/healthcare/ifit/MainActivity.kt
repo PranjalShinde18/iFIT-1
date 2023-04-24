@@ -18,11 +18,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.healthcare.ifit.MentalHealth.ui.BMIScreen
+import com.healthcare.ifit.features.BMIScreen
 import com.healthcare.ifit.features.Reminder
 import com.healthcare.ifit.features.WaterTracker
 import com.healthcare.ifit.model.SignInViewModel
-
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
 

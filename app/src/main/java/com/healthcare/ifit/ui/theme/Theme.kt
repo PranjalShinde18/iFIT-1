@@ -9,31 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 
 private val DarkColorPalette = darkColors(
-    background = Cyan900,
-    surface = Cyan700,
-    onSurface = White,
-    primary = Grey900,
-    onPrimary = White,
-    secondary = Grey100
-)
-
-
-private val LightColorPalette = lightColors(
-    background = Cyan700,
-    surface = Green50,
-    onSurface = Grey900,
-    primary = Grey50,
-    onPrimary = Grey900,
-    secondary = Grey700
-
-    /* Other default colors to override
-    background = Color.White,
-    surface = Color.White,
-    onPrimary = Color.White,
-    onSecondary = Color.Black,
-    onBackground = Color.Black,
-    onSurface = Color.Black,
-    */
+    background = Black100,
+    surface = Grey,
+    onSurface = Green100,
+    primary = Green50,
+    onPrimary = Grey800,
+    secondary = Green200
 )
 
 @Composable
@@ -41,7 +22,7 @@ fun IFITTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable (
     val colors = if (darkTheme) {
         DarkColorPalette
     } else {
-        LightColorPalette
+        DarkColorPalette
     }
 
     MaterialTheme(

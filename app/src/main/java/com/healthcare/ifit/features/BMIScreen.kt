@@ -1,4 +1,4 @@
-package com.healthcare.ifit.MentalHealth.ui
+package com.healthcare.ifit.features
 
 import android.content.Intent
 import android.os.Bundle
