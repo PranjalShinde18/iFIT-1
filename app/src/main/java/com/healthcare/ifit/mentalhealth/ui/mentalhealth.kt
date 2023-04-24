@@ -1,4 +1,4 @@
-package com.healthcare.ifit.mentalhealth
+package com.healthcare.ifit.mentalhealth.ui
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -22,14 +22,18 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.healthcare.ifit.R
+import com.healthcare.ifit.ui.theme.IFITTheme
 
 
 @Composable
@@ -39,14 +43,13 @@ fun MeditationScreenUi(
     on10min : () -> Unit,
 ) {
     val quotes = listOf(
-        "When Meditation is mastered the mind is unwavering like the flame of a lamp in a wundless place          ~  Shree Krishna"
+        stringResource(id = R.string.quote1)
     )
 
     val currentQuote = remember { mutableStateOf("") }
     currentQuote.value = remember { quotes.random() }
 
     Surface(
-        color = Color.Black,
         modifier = Modifier.fillMaxSize()
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
@@ -65,18 +68,18 @@ fun MeditationScreenUi(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .size(240.dp)
-                    .padding(bottom = 16.dp)
+                    .padding(bottom = 16.dp),
+                contentScale = ContentScale.Crop
             )
             Text(
                 text = currentQuote.value,
                 color = Color.White,
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.h6,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Card(
-                backgroundColor = Color.Black,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(
@@ -152,4 +155,15 @@ fun MeditationScreenUi(
 
         }
     }
+}
+
+@Preview
+@Composable
+fun MeditationScreenUiPreview(){
+    IFITTheme() {
+        MeditationScreenUi(on3min = { /*TODO*/ }, on5min = { /*TODO*/ }) {
+            
+        }
+    }
+
 }
