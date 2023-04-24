@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Theme.IFIT" parent="android:Theme.Material.Light.NoActionBar">
+<<<<<<< HEAD
+
+
         <item name="android:statusBarColor">@color/black_100</item>
+
+        <item name="android:windowLightStatusBar">true</item>
+
+=======
+        <item name="android:statusBarColor">@color/black_100</item>
+>>>>>>> 18ef3eca2ec19d73cf8b923099f134b4c96142b7
     </style>
 </resources>

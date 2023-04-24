@@ -26,9 +26,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+<<<<<<< HEAD
+
+=======
 import com.healthcare.ifit.ui.theme.IFITTheme
+>>>>>>> 18ef3eca2ec19d73cf8b923099f134b4c96142b7
 
 
 @Composable
@@ -38,7 +41,8 @@ fun HomeScreen(
     onBMIcal: ()-> Unit,
     onWater: ()-> Unit,
     onMedicine: () -> Unit,
-    onMentalHealth: () -> Unit
+    onMentalHealth: () -> Unit,
+    onSleep: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -85,13 +89,24 @@ fun HomeScreen(
         }
     ) {
         it
-        HomeScreenUi()
+        HomeScreenUi(
+        onBMIcal=onBMIcal,
+        onWater = onWater,
+        onMedicine = onMedicine,
+            onSleep = onSleep
+        )
     }
 
 }
 
 @Composable
-fun HomeScreenUi() {
+fun HomeScreenUi(
+    onBMIcal: ()-> Unit,
+    onWater: ()-> Unit,
+    onMedicine: () -> Unit,
+    onSleep: () -> Unit,
+
+) {
     val state = rememberScrollState()
     LaunchedEffect(Unit) { state.animateScrollTo(100) }
     Column(
@@ -102,10 +117,10 @@ fun HomeScreenUi() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(20.dp)
     ) {
+
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-              //  .weight(3f, false)
         ) {
             Column(
                 modifier = Modifier
@@ -140,7 +155,8 @@ fun HomeScreenUi() {
                 modifier = Modifier
                     //.width(144.dp)
                     .aspectRatio(1.3f, false)
-                    .weight(1f),
+                    .weight(1f)
+                    .clickable { onSleep?.invoke()},
                 backgroundColor = MaterialTheme.colors.primary
             ) {
                 Text(text = "Sleep Traker")
@@ -150,13 +166,16 @@ fun HomeScreenUi() {
                 modifier = Modifier
                     //.width(144.dp)
                     .aspectRatio(1.3f, false)
-                    .weight(1f),
+                    .weight(1f)
+                    .clickable { onMedicine?.invoke()},
                 backgroundColor = MaterialTheme.colors.primary
             ) {
                 Text(text = "Medicine Tracker")
             }
 
         }
+
+
 
         Row(
             modifier = Modifier
@@ -192,7 +211,8 @@ fun HomeScreenUi() {
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
-                .height(80.dp),
+                .height(80.dp)
+                .clickable { onBMIcal?.invoke()},
         //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.primary
         ) {
@@ -203,7 +223,8 @@ fun HomeScreenUi() {
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
-                .height(80.dp),
+                .height(80.dp)
+                .clickable { onWater?.invoke() },
         //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.secondary
         ) {
@@ -211,71 +232,3 @@ fun HomeScreenUi() {
         }
     }
 }
-
-
-
-@Preview(showBackground = true)
-@Composable
-fun HomeScreenPreview() {
-    IFITTheme {
-        HomeScreen(
-            userData = null,
-            onSignOut = {},
-            onBMIcal = {},
-            onWater = {},
-        onMedicine = {})
-
-        {
-
-        }
-    }
-}
-
-
-//if (userData?.profilePictureUrl != null) {
-//    AsyncImage(
-//        model = userData.profilePictureUrl,
-//        contentDescription = "Profile picture",
-//        modifier = Modifier
-//            .size(150.dp)
-//            .clip(CircleShape),
-//        contentScale = ContentScale.Crop
-//    )
-//    Spacer(modifier = Modifier.height(16.dp))
-//}
-//    if (userData?.profilePictureUrl != null) {
-//        AsyncImage(
-//            model = userData.profilePictureUrl,
-//            contentDescription = "Profile picture",
-//            modifier = Modifier
-//                .size(150.dp)
-//                .clip(CircleShape),
-//            contentScale = ContentScale.Crop
-//        )
-//        Spacer(modifier = Modifier.height(16.dp))
-//    }
-//    if (userData?.username != null) {
-//        Text(
-//            text = userData.username,
-//            textAlign = TextAlign.Center,
-//            fontSize = 36.sp,
-//            fontWeight = FontWeight.SemiBold
-//        )
-//        Spacer(modifier = Modifier.height(16.dp))
-//    }
-//    Button(onClick = onSignOut) {
-//        Text(text = "Sign out")
-//    }
-//
-//    Button(onClick = onBMIcal) {
-//        Text(text = "BMI-Calculator")
-//    }
-//
-//    Button(onClick = onWater) {
-//        Text(text = "Water-Tracker")
-//    }
-//
-//    Button(onClick = onMedicine) {
-//        Text(text = "Medicine")
-//    }
-//}

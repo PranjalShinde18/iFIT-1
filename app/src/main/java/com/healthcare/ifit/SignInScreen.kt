@@ -5,12 +5,10 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
@@ -18,24 +16,34 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.healthcare.ifit.model.SignInViewModel
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
+import com.healthcare.ifit.realtimedb.User
 import com.healthcare.ifit.uiState.SignInState
 
 @Composable
 fun SignInScreen(
     state: SignInState,
+    toinputscreen :() -> Unit,
     onSignInClick: () -> Unit
 ) {
 
+    val database = Firebase.database
+    val myRef = database.getReference("User")
+    var username by remember { mutableStateOf("") }
+    var userpassword by remember { mutableStateOf("") }
+
+
     val context = LocalContext.current
+
     LaunchedEffect(key1 = state.signInError) {
         state.signInError?.let { error ->
             Toast.makeText(
@@ -69,8 +77,8 @@ fun SignInScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = username,
+                onValueChange = {username = it},
                 label = {
                     Text(text = "Name")
                 },
@@ -78,10 +86,10 @@ fun SignInScreen(
                 )
             Spacer(modifier = Modifier.height(0.dp))
             OutlinedTextField(
-                value = "",
-                onValueChange = {},
+                value = userpassword,
+                onValueChange = {userpassword = it},
                 label = {
-                    Text(text = "Age")
+                    Text(text = "Password")
                 },
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -89,20 +97,37 @@ fun SignInScreen(
         }
 
         Button(
-            onClick = onSignInClick,
-            modifier = Modifier
-                .width(144.dp)
-                .aspectRatio(3f, false)
-        ) {
-            Text(text = "Sign in")
-        }
-    }
-}
+            onClick = {
+                if (username.isNotEmpty() && userpassword.isNotEmpty()) {
 
-@Preview(showBackground = true)
-@Composable
-fun SignInScreenPreview() {
-    val viewModel = viewModel<SignInViewModel>()
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    SignInScreen(state = state ) {}
+                    val userinfo = User(username,userpassword)
+
+                    myRef.child(username).setValue(userinfo).addOnSuccessListener {
+                        username = ""
+                        userpassword = ""
+
+                        Toast.makeText(context,"Sign in Successful",Toast.LENGTH_LONG).show()
+
+                        toinputscreen()
+
+                    }
+                        .addOnFailureListener {
+                            Toast.makeText(context,"Sign in Unsuccessful",Toast.LENGTH_LONG).show()
+                        }
+
+
+                } else {
+                    Toast.makeText(context,"Pls insert values" ,Toast.LENGTH_LONG).show()
+                }
+            }
+
+        ) {
+            Text(text = "SignIn")
+        }
+
+        Button(onClick = onSignInClick) {
+            Text(text = "Sign in With Google")
+        }
+
+    }
 }

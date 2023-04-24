@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+package com.healthcare.ifit.MentalHealth.ui
+=======
 
 package com.healthcare.ifit.mentalhealth.ui
 
@@ -249,3 +252,4 @@ fun MentalScreenPreview() {
 }
 
 
+>>>>>>> 18ef3eca2ec19d73cf8b923099f134b4c96142b7
