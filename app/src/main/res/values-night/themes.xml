@@ -2,5 +2,6 @@
 <resources>
     <style name="Theme.IFIT" parent="android:Theme.Material.NoActionBar">
         <item name="android:statusBarColor">@color/black_100</item>
+
     </style>
 </resources>
