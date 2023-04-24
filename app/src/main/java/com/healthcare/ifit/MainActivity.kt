@@ -21,7 +21,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-
+import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
 import com.healthcare.ifit.features.BMIScreen
 import com.healthcare.ifit.features.Reminder
 import com.healthcare.ifit.features.WaterTracker
@@ -48,7 +48,14 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
-                    NavHost(navController = navController, startDestination = "sign_in") {
+                    NavHost(navController = navController, startDestination = "gauth") {
+
+                        composable("gauth") {
+
+                            navController.navigate("sign_in")
+
+                        }
+
                         composable("sign_in") {
                             val viewModel = viewModel<SignInViewModel>()
                             val state by viewModel.state.collectAsStateWithLifecycle()
@@ -66,11 +73,13 @@ class MainActivity : ComponentActivity() {
                                     }
                                 }
                             )
+
                             LaunchedEffect(key1 = Unit) {
                                 if(googleAuthUiClient.getSignedInUser() != null) {
-                                    navController.navigate("inputscreen")
+                                    navController.navigate("sign_in")
                                 }
                             }
+
                             LaunchedEffect(key1 = state.isSignInSuccessful) {
                                 if(state.isSignInSuccessful) {
                                     Toast.makeText(
@@ -79,11 +88,12 @@ class MainActivity : ComponentActivity() {
                                         Toast.LENGTH_LONG
                                     ).show()
 
-                                    navController.navigate("inputScreen")
+                                    navController.navigate("homescreen")
                                     viewModel.resetState()
 
                                 }
                             }
+
                             SignInScreen(
                                 state = state,
                                 onSignInClick = {
@@ -95,14 +105,18 @@ class MainActivity : ComponentActivity() {
                                             ).build()
                                         )
                                     }
-//                                    navController.navigate("homescreen")
+                                },
 
+                                toinputscreen = {
                                     navController.navigate("inputScreen")
-
                                 }
 
                             )
                         }
+
+
+
+
                         composable("homescreen") {
                             HomeScreen(
                                 userData = googleAuthUiClient.getSignedInUser(),
@@ -128,6 +142,9 @@ class MainActivity : ComponentActivity() {
                                 },
                                 onMentalHealth = {
                                     navController.navigate("Mental")
+                                },
+                                onSleep = {
+                                    navController.navigate("sleeppp")
                                 }
                             )
                         }
@@ -143,29 +160,31 @@ class MainActivity : ComponentActivity() {
                         composable("Medicine"){
                             Reminder( onHome = {
                                 navController.popBackStack()
+                            })
+                        }
+
+                        composable("medicine"){
+                            Reminder(
+                                onHome = { navController.popBackStack()
+                                }
+                            )
+                        }
+                        composable("inputScreen"){
+                            InputScreen(onNextClick = {
+                                navController.navigate("homescreen")
                             }
                             )
                         }
 
-                        composable("Mental"){
-
-//                            MentalScreen(
-//
-//                                onMeditation = {
-//                                    navController.navigate("meditate")
-//                                },
-//
-//                                onSleep = {
-//                                    navController.navigate("Sleep")
-//                                }
-//                            )
+                        composable("sleeppp"){
+                            DailyMeditationScreen()
                         }
 
                         composable("meditate"){
 //
                             MeditationScreenUi(
                                 on3min = {
-                                         navController.navigate("onthreemincall")
+                                    navController.navigate("onthreemincall")
                                 },
                                 on5min = {
                                     navController.navigate("onfivemincall")
@@ -195,24 +214,6 @@ class MainActivity : ComponentActivity() {
                                 totalTime = 600L * 1000L,
                                 modifier = Modifier.size(200.dp)
                             )
-                        }
-
-//                        composable("Sleep"){
-//                            SleepScreen(
-//
-//                            )
-//                        }
-
-                        composable("medicine"){
-                            Reminder(
-                                onHome = { navController.popBackStack()
-                                }
-                            )
-                        }
-                        composable("inputScreen"){
-                            InputScreen(onNextClick = {
-                                navController.navigate("homescreen")
-                            })
                         }
                     }
                 }

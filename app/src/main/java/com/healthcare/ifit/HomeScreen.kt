@@ -1,5 +1,6 @@
 package com.healthcare.ifit
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,7 +37,8 @@ fun HomeScreen(
     onBMIcal: ()-> Unit,
     onWater: ()-> Unit,
     onMedicine: () -> Unit,
-    onMentalHealth: () -> Unit
+    onMentalHealth: () -> Unit,
+    onSleep: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -79,13 +81,24 @@ fun HomeScreen(
         }
     ) {
         it
-        HomeScreenUi()
+        HomeScreenUi(
+        onBMIcal=onBMIcal,
+        onWater = onWater,
+        onMedicine = onMedicine,
+            onSleep = onSleep
+        )
     }
 
 }
 
 @Composable
-fun HomeScreenUi() {
+fun HomeScreenUi(
+    onBMIcal: ()-> Unit,
+    onWater: ()-> Unit,
+    onMedicine: () -> Unit,
+    onSleep: () -> Unit,
+
+) {
     val state = rememberScrollState()
     LaunchedEffect(Unit) { state.animateScrollTo(100) }
     Column(
@@ -100,7 +113,6 @@ fun HomeScreenUi() {
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-              //  .weight(3f, false)
         ) {
             Column(
                 modifier = Modifier
@@ -135,7 +147,8 @@ fun HomeScreenUi() {
                 modifier = Modifier
                     //.width(144.dp)
                     .aspectRatio(1.3f, false)
-                    .weight(1f),
+                    .weight(1f)
+                    .clickable { onSleep?.invoke()},
                 backgroundColor = MaterialTheme.colors.primary
             ) {
                 Text(text = "Sleep Traker")
@@ -145,13 +158,16 @@ fun HomeScreenUi() {
                 modifier = Modifier
                     //.width(144.dp)
                     .aspectRatio(1.3f, false)
-                    .weight(1f),
+                    .weight(1f)
+                    .clickable { onMedicine?.invoke()},
                 backgroundColor = MaterialTheme.colors.primary
             ) {
                 Text(text = "Medicine Tracker")
             }
 
         }
+
+
 
         Row(
             modifier = Modifier
@@ -187,7 +203,8 @@ fun HomeScreenUi() {
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
-                .height(80.dp),
+                .height(80.dp)
+                .clickable { onBMIcal?.invoke()},
         //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.primary
         ) {
@@ -198,7 +215,8 @@ fun HomeScreenUi() {
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
-                .height(80.dp),
+                .height(80.dp)
+                .clickable { onWater?.invoke() },
         //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.secondary
         ) {

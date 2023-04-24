@@ -32,13 +32,12 @@ import com.healthcare.ifit.uiState.SignInState
 @Composable
 fun SignInScreen(
     state: SignInState,
+    toinputscreen :() -> Unit,
     onSignInClick: () -> Unit
 ) {
 
     val database = Firebase.database
     val myRef = database.getReference("User")
-
-
     var username by remember { mutableStateOf("") }
     var userpassword by remember { mutableStateOf("") }
 
@@ -107,13 +106,13 @@ fun SignInScreen(
                         username = ""
                         userpassword = ""
 
-                        Toast.makeText(context,"Record inserted",Toast.LENGTH_LONG).show()
+                        Toast.makeText(context,"Sign in Successful",Toast.LENGTH_LONG).show()
 
-                        onSignInClick()
+                        toinputscreen()
 
                     }
                         .addOnFailureListener {
-                            Toast.makeText(context,"Record not inserted",Toast.LENGTH_LONG).show()
+                            Toast.makeText(context,"Sign in Unsuccessful",Toast.LENGTH_LONG).show()
                         }
 
 
@@ -125,5 +124,10 @@ fun SignInScreen(
         ) {
             Text(text = "SignIn")
         }
+
+        Button(onClick = onSignInClick) {
+            Text(text = "Sign in With Google")
+        }
+
     }
 }
