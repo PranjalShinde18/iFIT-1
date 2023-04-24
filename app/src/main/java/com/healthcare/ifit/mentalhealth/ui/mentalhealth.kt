@@ -148,7 +148,7 @@ fun MeditationScreenUi(
                         append("• Improves sleep\n")
                     }
                 },
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.h6,
                 color = Color.White
             )
 

@@ -210,8 +210,6 @@ fun HomeScreenUi() {
             Text(text = "Water Intake")
         }
     }
-
-
 }
 
 
