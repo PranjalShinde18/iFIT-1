@@ -56,7 +56,7 @@ fun InputScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Image(
-            painter = painterResource(id = R.drawable.ic_android_black_24dp),
+            painter = painterResource(id = R.drawable.ifit),
             contentDescription = null,
             modifier = Modifier
                 .size(144.dp)
