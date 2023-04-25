@@ -1,8 +1,5 @@
 package com.healthcare.ifit.mentalhealth.ui
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.*
@@ -17,11 +14,20 @@ import androidx.compose.ui.text.ParagraphStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.style.TextIndent
 import androidx.compose.ui.text.withStyle
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.healthcare.ifit.R
 import com.healthcare.ifit.ui.theme.IFITTheme
 
+
+@Preview
+@Composable
+fun DailyMeditationScreenPreview(){
+    IFITTheme {
+        DailyMeditationScreenPreview()
+    }
+}
 
 @Composable
 fun DailyMeditationScreen() {
@@ -40,14 +46,12 @@ fun DailyMeditationScreen() {
     currentQuote.value = remember { quotes.random() }
 
     Surface(
-        color = Color.Black,
         modifier = Modifier.fillMaxSize()
     ) {
         Column(modifier = Modifier.padding(16.dp)) {
             Text(
                 text = "Sleep",
                 style = MaterialTheme.typography.h4,
-                color = Color.White,
                 modifier = Modifier
                     .align(Alignment.Start)
                     .padding(top = 8.dp, start = 4.dp)
@@ -63,14 +67,12 @@ fun DailyMeditationScreen() {
             )
             Text(
                 text = currentQuote.value,
-                color = Color.White,
-                style = MaterialTheme.typography.body1,
+                style = MaterialTheme.typography.h6,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
             )
             Spacer(modifier = Modifier.height(16.dp))
             Card(
-                backgroundColor = Color.Black,
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Column(
@@ -81,7 +83,7 @@ fun DailyMeditationScreen() {
                     Text(
                         text = "Choose a duration",
                         style = MaterialTheme.typography.h5,
-                        color = Color.White
+
                     )
                     Spacer(modifier = Modifier.height(16.dp))
                     Row(
@@ -91,34 +93,28 @@ fun DailyMeditationScreen() {
                         Button(
                             onClick = {},
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.White
                             )
                         ) {
                             Text(
                                 text = "15 min",
-                                color = Color.Black
                             )
                         }
                         Button(
                             onClick = {},
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.White
                             )
                         ) {
                             Text(
                                 text = "30 min",
-                                color = Color.Black
                             )
                         }
                         Button(
                             onClick = {},
                             colors = ButtonDefaults.buttonColors(
-                                backgroundColor = Color.White
                             )
                         ) {
                             Text(
                                 text = "45 min",
-                                color = Color.Black
                             )
                         }
                     }
@@ -140,10 +136,7 @@ fun DailyMeditationScreen() {
                     }
                 },
                 style = MaterialTheme.typography.body1,
-                color = Color.White
             )
-
-
         }
     }
 }

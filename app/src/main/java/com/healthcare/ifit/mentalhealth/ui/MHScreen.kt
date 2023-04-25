@@ -2,7 +2,6 @@
 package com.healthcare.ifit.mentalhealth.ui
 
 
-
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -13,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.BottomAppBar
@@ -40,6 +40,11 @@ import com.healthcare.ifit.ui.theme.IFITTheme
 fun MentalScreen(
     onMeditation: () -> Unit,
     onSleep: () -> Unit,
+
+    onHomeSc: () -> Unit,
+    onPHSc: () -> Unit,
+    onMHSc: () -> Unit,
+    onPrSc: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -57,25 +62,33 @@ fun MentalScreen(
                         painter = painterResource(id = R.drawable.home),
                         contentDescription = "Home",
                         tint = Color.White,
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable { onHomeSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.workout),
                         contentDescription = "Workout",
                         tint = Color.White,
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable { onPHSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.medition),
                         contentDescription = "Meditation",
                         tint = Color.White,
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable { onMHSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.profile),
                         contentDescription = "Profile",
                         tint = Color.White,
-                        modifier = Modifier.size(40.dp)
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable { onPrSc?.invoke() }
                     )
                 }
             }
@@ -99,7 +112,7 @@ fun MHScreenUi (
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(8.dp)
+            .padding(16.dp)
             .verticalScroll(state),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.spacedBy(32.dp)
@@ -176,9 +189,9 @@ fun MHScreenUi (
         Card(
             modifier = Modifier
                 .height(104.dp)
-                .aspectRatio(2.8f, true)
+                .aspectRatio(3f, false)
                 .align(Alignment.Start)
-                .clickable {onMeditation?.invoke()}
+                .clickable { onMeditation?.invoke() }
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -200,9 +213,9 @@ fun MHScreenUi (
         Card(
             modifier = Modifier
                 .height(104.dp)
-                .aspectRatio(2.8f, true)
+                .aspectRatio(3f, true)
                 .align(Alignment.Start)
-                .clickable {onSleep?.invoke()}
+                .clickable { onSleep?.invoke() }
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -239,14 +252,19 @@ fun MHScreenUi (
     }
 }
 
-@Preview (showBackground = false)
+
+@Preview(showBackground = false)
 @Composable
 fun MentalScreenPreview() {
     IFITTheme() {
         MentalScreen(
-            onMeditation = {},
-            onSleep = {}
-        )
+            onMeditation = { /*TODO*/ },
+            onSleep = { /*TODO*/ },
+            onHomeSc = { /*TODO*/ },
+            onPHSc = { /*TODO*/ },
+            onMHSc = { /*TODO*/ },
+            onPrSc = {})
+
     }
 }
 

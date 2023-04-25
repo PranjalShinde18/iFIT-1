@@ -1,6 +1,7 @@
 package com.healthcare.ifit
 
 
+
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -27,6 +28,7 @@ import com.healthcare.ifit.features.WaterTracker
 import com.healthcare.ifit.mentalhealth.Timer
 import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
 import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
+import com.healthcare.ifit.mentalhealth.ui.MentalScreen
 import com.healthcare.ifit.model.SignInViewModel
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
@@ -48,10 +50,9 @@ class MainActivity : ComponentActivity() {
                 ) {
                     val navController = rememberNavController()
 
-                    NavHost(navController = navController, startDestination = "gauth") {
-                        composable("gauth") {
-                            navController.navigate("sign_in")
-                        }
+
+                    NavHost(navController = navController, startDestination = "sign_in") {
+
 
                         composable("sign_in") {
                             val viewModel = viewModel<SignInViewModel>()
@@ -111,9 +112,9 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
+
                         composable("homescreen") {
                             HomeScreen(
-                                userData = googleAuthUiClient.getSignedInUser(),
                                 onSignOut = {
                                     lifecycleScope.launch {
                                         googleAuthUiClient.signOut()
@@ -134,12 +135,67 @@ class MainActivity : ComponentActivity() {
                                 onMedicine ={
                                     navController.navigate("Medicine")
                                 },
-                                onMentalHealth = {
-                                    navController.navigate("Mental")
+
+                                onSleep = {
+
+                                },
+
+
+                                onHomeSc = {
+                                           navController.navigate("homescreen")
+                                },
+                                onPHSc = {
+                                         navController.navigate("PhysicalHealth")
+                                },
+                                onMHSc = {
+                                         navController.navigate("MentalHealth")
+                                },
+                                onPrSc = {
+                                         navController.navigate("ProfileScreen")
+                                },
+                            )
+                        }
+
+                        composable("MentalHealth"){
+                            MentalScreen(
+                                onMeditation = {
+                                               navController.navigate("meditate")
                                 },
                                 onSleep = {
                                     navController.navigate("sleeppp")
+                                },
+
+                                onHomeSc = {
+                                    navController.navigate("homescreen")
+                                },
+                                onPHSc = {
+                                    navController.navigate("PhysicalHealth")
+                                },
+                                onMHSc = {
+                                    navController.navigate("MentalHealth")
+                                },
+                                onPrSc = {
+                                    navController.navigate("ProfileScreen")
                                 }
+
+
+                            )
+                        }
+
+                        composable("ProfileScreen") {
+                            ProfileScreen(
+                                onHomeSc = {
+                                navController.navigate("homescreen")
+                            },
+                                onPHSc = {
+                                navController.navigate("PhysicalHealth")
+                            },
+                                onMHSc = {
+                                navController.navigate("MentalHealth")
+                            },
+                                onPrSc = {
+                                navController.navigate("ProfileScreen")
+                            }
                             )
                         }
 

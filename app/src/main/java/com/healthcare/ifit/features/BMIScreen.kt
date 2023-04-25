@@ -14,6 +14,8 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -108,7 +110,7 @@ fun BMIScreen(
                 }
             )
         },
-        sheetBackgroundColor = Color(0xFF2f3d2c),
+        sheetBackgroundColor = Color.Gray,
         sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
         content = {
             BMIScreenContent(
@@ -163,8 +165,8 @@ fun BMIScreenContent(
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color.Gray)
-            .background(Color(0xFFf0ffee)),
+            .background(Color.DarkGray)
+            ,
         verticalArrangement = Arrangement.SpaceBetween
 
     ) {
@@ -175,7 +177,7 @@ fun BMIScreenContent(
             Text(
                 modifier = Modifier.fillMaxWidth(),
                 text = ("BMI Calculator"),
-                color = Color(0xFF2f3d2c),
+                color= Color.White,
                 fontSize = 28.sp,
                 textAlign = TextAlign.Center,
                 fontWeight = FontWeight.Bold
@@ -195,7 +197,7 @@ fun BMIScreenContent(
                     inputNoColor =
                     if (state.weightValueStage != WeightValueStage.INACTIVE) {
                         Color.Red
-                    } else Color.Black,
+                    } else Color.White,
                     onUnitValueClicked = onWeightValueClicked
                 )
             }
@@ -213,7 +215,7 @@ fun BMIScreenContent(
                     inputUnit = state.heightUnit,
                     inputNoColor = if (state.heightValueStage != HeightValueStage.INACTIVE) {
                         Color.Red
-                    } else Color.Black,
+                    } else Color.White,
                     onUnitValueClicked = onHeightValueClicked
                 )
             }
@@ -267,7 +269,6 @@ fun BMIScreenContent(
                     }
                 }
             }
-
 
         }
     }

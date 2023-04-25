@@ -26,18 +26,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-
+import com.healthcare.ifit.ui.theme.IFITTheme
 
 @Composable
 fun HomeScreen(
-    userData: UserData?,
+
     onSignOut: () -> Unit,
     onBMIcal: ()-> Unit,
     onWater: ()-> Unit,
     onMedicine: () -> Unit,
-    onMentalHealth: () -> Unit,
-    onSleep: () -> Unit
+    onSleep: () -> Unit,
+
+    onHomeSc: () -> Unit,
+    onPHSc: () -> Unit,
+    onMHSc: () -> Unit,
+    onPrSc: () -> Unit
+
 ) {
     Scaffold(
         bottomBar = {
@@ -55,29 +61,33 @@ fun HomeScreen(
                         painter = painterResource(id = R.drawable.home),
                         contentDescription = "Home",
                         tint = Color.White,
-                        modifier = Modifier.size(40.dp)
-                            .clickable {  }
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable { onHomeSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.workout),
                         contentDescription = "Workout",
                         tint = Color.White,
-                        modifier = Modifier.size(40.dp)
-                            .clickable {  }
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable { onPHSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.medition),
                         contentDescription = "Meditation",
                         tint = Color.White,
-                        modifier = Modifier.size(40.dp)
-                            .clickable {  }
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable { onMHSc?.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.profile),
                         contentDescription = "Profile",
                         tint = Color.White,
-                        modifier = Modifier.size(40.dp)
-                            .clickable {  }
+                        modifier = Modifier
+                            .size(40.dp)
+                            .clickable { onPrSc?.invoke() }
                     )
                 }
             }
@@ -151,10 +161,11 @@ fun HomeScreenUi(
                     //.width(144.dp)
                     .aspectRatio(1.3f, false)
                     .weight(1f)
-                    .clickable { onSleep?.invoke()},
+                    .clickable { onSleep?.invoke() },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
-                Text(text = "Sleep Traker")
+                Icon(painterResource(id = R.drawable.sleeping), contentDescription = null,
+                    modifier = Modifier.size(20.dp))
             }
 
             Card(
@@ -162,7 +173,7 @@ fun HomeScreenUi(
                     //.width(144.dp)
                     .aspectRatio(1.3f, false)
                     .weight(1f)
-                    .clickable { onMedicine?.invoke()},
+                    .clickable { onMedicine?.invoke() },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
                 Text(text = "Medicine Tracker")
@@ -207,7 +218,7 @@ fun HomeScreenUi(
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
                 .height(80.dp)
-                .clickable { onBMIcal?.invoke()},
+                .clickable { onBMIcal?.invoke() },
         //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.primary
         ) {
@@ -224,6 +235,24 @@ fun HomeScreenUi(
             backgroundColor = MaterialTheme.colors.secondary
         ) {
             Text(text = "Water Intake")
+        }
+    }
+}
+
+@Preview
+@Composable
+fun HomeScreenPreview() {
+    IFITTheme() {
+        HomeScreen(
+            onSignOut = { /*TODO*/ },
+            onBMIcal = { /*TODO*/ },
+            onWater = { /*TODO*/ },
+            onMedicine = { /*TODO*/ },
+            onSleep = { /*TODO*/ },
+            onHomeSc = { /*TODO*/ },
+            onPHSc = { /*TODO*/ },
+            onMHSc = { /*TODO*/ }) {
+            
         }
     }
 }
