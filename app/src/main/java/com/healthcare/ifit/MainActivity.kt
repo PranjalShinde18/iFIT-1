@@ -195,7 +195,10 @@ class MainActivity : ComponentActivity() {
                             },
                                 onPrSc = {
                                 navController.navigate("ProfileScreen")
-                            }
+                            },
+                                onSignOut = {
+                                    navController.navigate("sign_in")
+                                }
                             )
                         }
 

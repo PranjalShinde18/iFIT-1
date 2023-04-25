@@ -25,7 +25,8 @@ fun ProfileScreen(
     onHomeSc: () -> Unit,
     onPHSc: () -> Unit,
     onMHSc: () -> Unit,
-    onPrSc: () -> Unit
+    onPrSc: () -> Unit,
+    onSignOut: () -> Unit
 ) {
     Scaffold(
         bottomBar = {
@@ -78,6 +79,7 @@ fun ProfileScreen(
             onPHSc = onPHSc,
             onMHSc = onMHSc,
             onPrSc = onPrSc,
+            onSignOut = onSignOut
         )
     }
 }
@@ -91,7 +93,8 @@ fun Profile(
     onHomeSc: () -> Unit,
     onPHSc: () -> Unit,
     onMHSc: () -> Unit,
-    onPrSc: () -> Unit
+    onPrSc: () -> Unit,
+    onSignOut: () -> Unit
 ) {
     // Define state variables to hold profile information
     val name = remember { mutableStateOf("Pranjal") }
@@ -276,7 +279,7 @@ fun Profile(
             }
 
             Button(
-                onClick = { /* TODO */ },
+                onClick = onSignOut,
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(vertical = 8.dp)
