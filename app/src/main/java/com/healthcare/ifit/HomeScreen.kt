@@ -4,6 +4,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,7 +34,7 @@ import com.healthcare.ifit.ui.theme.IFITTheme
 @Composable
 fun HomeScreen(
 
-    onSignOut: () -> Unit,
+//  onSignOut: () -> Unit,
     onBMIcal: ()-> Unit,
     onWater: ()-> Unit,
     onMedicine: () -> Unit,
@@ -51,7 +52,7 @@ fun HomeScreen(
                 modifier = Modifier
                     .height(80.dp),
                 backgroundColor = MaterialTheme.colors.background
-            ) { ->
+            ) {
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceEvenly,
@@ -63,7 +64,7 @@ fun HomeScreen(
                         tint = Color.White,
                         modifier = Modifier
                             .size(40.dp)
-                            .clickable { onHomeSc?.invoke() }
+                            .clickable { onHomeSc.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.workout),
@@ -71,7 +72,7 @@ fun HomeScreen(
                         tint = Color.White,
                         modifier = Modifier
                             .size(40.dp)
-                            .clickable { onPHSc?.invoke() }
+                            .clickable { onPHSc.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.medition),
@@ -79,7 +80,7 @@ fun HomeScreen(
                         tint = Color.White,
                         modifier = Modifier
                             .size(40.dp)
-                            .clickable { onMHSc?.invoke() }
+                            .clickable { onMHSc.invoke() }
                     )
                     Icon(
                         painter = painterResource(id = R.drawable.profile),
@@ -87,7 +88,7 @@ fun HomeScreen(
                         tint = Color.White,
                         modifier = Modifier
                             .size(40.dp)
-                            .clickable { onPrSc?.invoke() }
+                            .clickable { onPrSc.invoke() }
                     )
                 }
             }
@@ -120,7 +121,7 @@ fun HomeScreenUi(
             .padding(8.dp)
             .verticalScroll(state),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(20.dp)
+        verticalArrangement = Arrangement.spacedBy(24.dp)
     ) {
 
         Card(
@@ -151,7 +152,7 @@ fun HomeScreenUi(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(start = 16.dp, end = 16.dp,),
+                .padding(start = 16.dp, end = 16.dp),
          //       .weight(1.5f, true),
             horizontalArrangement = Arrangement.spacedBy(16.dp,Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
@@ -159,30 +160,37 @@ fun HomeScreenUi(
             Card(
                 modifier = Modifier
                     //.width(144.dp)
-                    .aspectRatio(1.3f, false)
+                    .aspectRatio(1.6f, false)
                     .weight(1f)
-                    .clickable { onSleep?.invoke() },
+                    .padding(4.dp)
+                    .clickable { onSleep() },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
-                Icon(painterResource(id = R.drawable.sleeping), contentDescription = null,
-                    modifier = Modifier.size(20.dp))
+                Icon(
+                    painterResource(id = R.drawable.sleeping__1_),
+                    contentDescription = null,
+                    modifier = Modifier.padding(16.dp)
+                )
             }
 
             Card(
                 modifier = Modifier
                     //.width(144.dp)
-                    .aspectRatio(1.3f, false)
+                    .aspectRatio(1.6f, false)
                     .weight(1f)
-                    .clickable { onMedicine?.invoke() },
+                    .padding(4.dp)
+                    .clickable { onMedicine.invoke() },
                 backgroundColor = MaterialTheme.colors.primary
             ) {
-                Text(text = "Medicine Tracker")
+                Icon(
+                    painterResource(id = R.drawable.medicine),
+                    contentDescription = null,
+                    modifier = Modifier.padding(16.dp)
+                )
             }
 
         }
-
-
-
+      //  Spacer(modifier = Modifier.height(2.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -195,34 +203,53 @@ fun HomeScreenUi(
             Card(
                 modifier = Modifier
                     //.width(144.dp)
-                    .aspectRatio(1.3f, false)
-                    .weight(1f),
+                    .aspectRatio(1.6f, false)
+                    .weight(1f)
+                    .padding(4.dp),
                 backgroundColor = MaterialTheme.colors.secondary
             ) {
-                Text(text = "Height")
+
+                    Text(
+                        text = "Height: 180CM",
+                        style = MaterialTheme.typography.h5,
+                        textAlign = TextAlign.Center,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(16.dp)
+                    )
             }
 
             Card(
                 modifier = Modifier
                     //.width(144.dp)
-                    .aspectRatio(1.3f, false)
-                    .weight(1f),
+                    .aspectRatio(1.6f, false)
+                    .weight(1f)
+                    .padding(4.dp),
                 backgroundColor = MaterialTheme.colors.secondary
             ) {
-                Text(text = "Weight")
+                Text(
+                    text = "Weight: 72Kg",
+                    style = MaterialTheme.typography.h5,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(16.dp)
+                )
             }
         }
-
+        Spacer(modifier = Modifier.height(1.dp))
         Card(
             modifier = Modifier
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
                 .height(80.dp)
-                .clickable { onBMIcal?.invoke() },
+                .clickable { onBMIcal.invoke() },
         //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.primary
         ) {
-            Text(text = "Bmi Calculator")
+            Icon(
+                painterResource(id = R.drawable.bmi),
+                contentDescription = null,
+                modifier = Modifier.padding(8.dp)
+            )
         }
 
         Card(
@@ -230,11 +257,15 @@ fun HomeScreenUi(
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
                 .height(80.dp)
-                .clickable { onWater?.invoke() },
+                .clickable { onWater.invoke() },
         //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.secondary
         ) {
-            Text(text = "Water Intake")
+            Icon(
+                painterResource(id = R.drawable.glass_of_water),
+                contentDescription = null,
+                modifier = Modifier.padding(8.dp)
+            )
         }
     }
 }
@@ -242,9 +273,9 @@ fun HomeScreenUi(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    IFITTheme() {
+    IFITTheme {
         HomeScreen(
-            onSignOut = { /*TODO*/ },
+ //         onSignOut = { /*TODO*/ },
             onBMIcal = { /*TODO*/ },
             onWater = { /*TODO*/ },
             onMedicine = { /*TODO*/ },

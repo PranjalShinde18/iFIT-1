@@ -26,6 +26,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import com.healthcare.ifit.realtimedb.Name
 import com.healthcare.ifit.realtimedb.User
 import com.healthcare.ifit.uiState.SignInState
 
@@ -100,7 +101,7 @@ fun SignInScreen(
             onClick = {
                 if (username.isNotEmpty() && userpassword.isNotEmpty()) {
 
-                    val userinfo = User(username,userpassword)
+                    val userinfo = Name(username,userpassword)
 
                     myRef.child(username).setValue(userinfo).addOnSuccessListener {
                         username = ""

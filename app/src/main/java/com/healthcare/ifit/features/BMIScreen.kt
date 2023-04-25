@@ -17,6 +17,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Gray
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -44,9 +45,11 @@ class bmical: ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            BMIScreen(
-                viewModel = viewModel()
-            )
+            IFITTheme() {
+                BMIScreen(
+                    viewModel = viewModel()
+                )
+            }
 
             BMIScreenContent(
                 state = BMIScreenState(),
@@ -110,7 +113,7 @@ fun BMIScreen(
                 }
             )
         },
-        sheetBackgroundColor = Color.Gray,
+        sheetBackgroundColor = MaterialTheme.colors.background,
         sheetShape = RoundedCornerShape(topStart = 20.dp, topEnd = 20.dp),
         content = {
             BMIScreenContent(

@@ -115,17 +115,17 @@ class MainActivity : ComponentActivity() {
 
                         composable("homescreen") {
                             HomeScreen(
-                                onSignOut = {
-                                    lifecycleScope.launch {
-                                        googleAuthUiClient.signOut()
-                                        Toast.makeText(
-                                            applicationContext,
-                                            "Signed out",
-                                            Toast.LENGTH_LONG
-                                        ).show()
-                                        navController.popBackStack()
-                                    }
-                                },
+//                                onSignOut = {
+//                                    lifecycleScope.launch {
+//                                        googleAuthUiClient.signOut()
+//                                        Toast.makeText(
+//                                            applicationContext,
+//                                            "Signed out",
+//                                            Toast.LENGTH_LONG
+//                                        ).show()
+//                                        navController.popBackStack()
+//                                    }
+//                                },
                                 onBMIcal = {
                                     navController.navigate("bmical")
                                 },
@@ -196,6 +196,23 @@ class MainActivity : ComponentActivity() {
                                 onPrSc = {
                                 navController.navigate("ProfileScreen")
                             }
+                            )
+                        }
+
+                        composable("PhysicalHealth") {
+                            WorkoutScreen(
+                                onHomeSc = {
+                                    navController.navigate("homescreen")
+                                },
+                                onPHSc = {
+                                    navController.navigate("PhysicalHealth")
+                                },
+                                onMHSc = {
+                                    navController.navigate("MentalHealth")
+                                },
+                                onPrSc = {
+                                    navController.navigate("ProfileScreen")
+                                }
                             )
                         }
 

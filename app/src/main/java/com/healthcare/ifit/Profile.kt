@@ -107,7 +107,7 @@ fun Profile(
         ) {
             // Profile picture
             Image(
-                painter = painterResource(id = R.drawable.profile),
+                painter = painterResource(id = R.drawable.p),
                 contentDescription = "Profile Picture",
                 modifier = Modifier
                     .size(120.dp)
