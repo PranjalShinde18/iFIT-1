@@ -69,7 +69,7 @@ fun SignInScreen(
             painter = painterResource(id = R.drawable.ifit),
             contentDescription = null,
             modifier = Modifier
-                .size(144.dp)
+                .size(200.dp)
                 .weight(1f, fill = true)
                 .wrapContentSize(Alignment.Center)
         )
