@@ -50,7 +50,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "sign_in") {
+                    NavHost(navController = navController, startDestination = "homescreen") {
 
                         composable("sign_in") {
                             val viewModel = viewModel<SignInViewModel>()

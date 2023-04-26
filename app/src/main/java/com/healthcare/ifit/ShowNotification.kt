@@ -19,7 +19,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.core.app.NotificationCompat
 
 @Composable
-fun ShowNotificationScreen() {
+fun ShowNotificationScreen(
+    medicine: String
+) {
     val context = LocalContext.current
     val notificationLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestPermission()
@@ -35,7 +37,7 @@ fun ShowNotificationScreen() {
 
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         Button(onClick = {
-            createNotification(context)
+            createNotification(context, medicine)
         }) {
             Text(text = "Show Notification")
         }
@@ -44,14 +46,15 @@ fun ShowNotificationScreen() {
 }
 
 private fun createNotification(
-    context: Context
+    context: Context,
+    medicine: String
 ) {
     val notificationManager = BaseApplication.notificationManager
 
     val notification = NotificationCompat.Builder(context, "channel_id")
-        .setContentTitle("Notification Title")
-        .setContentText("This is a notification")
-        .setSmallIcon(R.drawable.ic_launcher_foreground)
+        .setContentTitle("iFIT")
+        .setContentText("This is time for $medicine" )
+        .setSmallIcon(R.drawable.ifit)
         .setAutoCancel(true)
         .addAction(0, "Start", createPendingIntent(context))
         .setContentIntent(createPendingIntent(context))
