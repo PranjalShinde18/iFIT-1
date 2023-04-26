@@ -34,6 +34,7 @@ import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
             context = applicationContext,
@@ -49,10 +50,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize()
                 ) {
                     val navController = rememberNavController()
-
-
                     NavHost(navController = navController, startDestination = "sign_in") {
-
 
                         composable("sign_in") {
                             val viewModel = viewModel<SignInViewModel>()

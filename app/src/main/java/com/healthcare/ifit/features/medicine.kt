@@ -1,21 +1,16 @@
 package com.healthcare.ifit.features
 
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
+import android.widget.DatePicker
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Checkbox
-import androidx.compose.material.CheckboxColors
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Switch
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
@@ -32,30 +27,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.healthcare.ifit.ui.theme.IFITTheme
+import com.healthcare.ifit.ShowNotificationScreen
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
-
-class Medicine : ComponentActivity() {
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            IFITTheme {
-                // A surface container using the 'background' color from the theme
-                Surface(
-                    modifier = Modifier.fillMaxSize(),
-                    color = MaterialTheme.colors.background
-                ) {
-                    Reminder(
-                        onHome = {}
-                    )
-                }
-            }
-        }
-    }
-}
-
 
 
 @Composable
@@ -126,6 +101,9 @@ fun Reminder(
                         modifier = Modifier.weight(1f)
                     )
                 }
+
+
+
                // Spacer(modifier = Modifier.height(8.dp))
                 Switch(
                     checked = frequency == "Specific Days",
@@ -174,12 +152,7 @@ fun Reminder(
                     }
                 }
               //  Spacer(modifier = Modifier.height(8.dp))
-                Button(
-                    onClick = onHome,
-                    modifier = Modifier.align(Alignment.End)
-                ) {
-                    Text(text = "Dismiss")
-                }
+                rrShowNotificationScreen()
             }
         }
     }
