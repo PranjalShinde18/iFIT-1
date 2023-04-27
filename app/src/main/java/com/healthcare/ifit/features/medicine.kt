@@ -28,6 +28,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.healthcare.ifit.ShowNotificationScreen
+import com.healthcare.ifit.TimeSetter
+import com.healthcare.ifit.ui.theme.IFITTheme
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
@@ -151,8 +153,9 @@ fun Reminder(
                         }
                     }
                 }
-              //  Spacer(modifier = Modifier.height(8.dp))
-                ShowNotificationScreen()
+    //=   Spacer(modifier = Modifier.height(8.dp))
+                TimeSetter()
+                ShowNotificationScreen(medicineName)
             }
         }
     }
@@ -177,5 +180,8 @@ private fun Date.toDateString(): String {
 @Preview(showBackground = false)
 @Composable
 fun ReminderPreview() {
-    Reminder {}
+    IFITTheme() {
+        Reminder(){}
+    }
+
 }
