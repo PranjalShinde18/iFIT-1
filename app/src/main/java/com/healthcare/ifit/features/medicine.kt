@@ -152,7 +152,7 @@ fun Reminder(
                     }
                 }
               //  Spacer(modifier = Modifier.height(8.dp))
-                rrShowNotificationScreen()
+                ShowNotificationScreen()
             }
         }
     }
