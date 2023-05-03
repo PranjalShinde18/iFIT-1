@@ -2,6 +2,7 @@ package com.healthcare.ifit
 
 
 
+import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.ComponentActivity
@@ -9,6 +10,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Surface
@@ -41,8 +43,11 @@ class MainActivity : ComponentActivity() {
             oneTapClient = com.google.android.gms.auth.api.identity.Identity.getSignInClient(applicationContext)
         )
     }
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+//        createNotificationsChannels()
+//        RemindersManager.startReminder(this)
 
         setContent{
             IFITTheme{
@@ -291,4 +296,15 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
+//    private fun createNotificationsChannels() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//            val channel = NotificationChannel(
+//                getString(R.string.reminders_notification_channel_id),
+//                getString(R.string.reminders_notification_channel_name),
+//                NotificationManager.IMPORTANCE_HIGH
+//            )
+//            ContextCompat.getSystemService(this, NotificationManager::class.java)
+//                ?.createNotificationChannel(channel)
+//        }
+//    }
 }

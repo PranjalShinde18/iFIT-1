@@ -1,6 +1,7 @@
 package com.healthcare.ifit.features
 
-import android.widget.DatePicker
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -24,21 +25,26 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.healthcare.ifit.ShowNotificationScreen
+import com.healthcare.ifit.Alarm
+import com.healthcare.ifit.MyNotification
 import com.healthcare.ifit.TimeSetter
+import com.healthcare.ifit.setAlarm
 import com.healthcare.ifit.ui.theme.IFITTheme
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun Reminder(
     onHome: ()-> Unit
 ) {
+    val context = LocalContext.current
     var showReminder by remember { mutableStateOf(true) }
     var medicineName by remember { mutableStateOf("") }
     var medicineUnit by remember { mutableStateOf("") }
@@ -155,7 +161,16 @@ fun Reminder(
                 }
     //=   Spacer(modifier = Modifier.height(8.dp))
                 TimeSetter()
-                ShowNotificationScreen(medicineName)
+                Button(onClick = {
+                                 setAlarm(context)
+                   // Alarm().showNotification(context, "rahul", "happy birthday")
+
+                },
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Text(text = "Notify")
+                }
+
             }
         }
     }
@@ -177,6 +192,7 @@ private fun Date.toDateString(): String {
     return sdf.format(this)
 }
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Preview(showBackground = false)
 @Composable
 fun ReminderPreview() {

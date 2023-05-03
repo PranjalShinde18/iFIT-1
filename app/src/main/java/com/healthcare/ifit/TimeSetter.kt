@@ -1,10 +1,11 @@
 package com.healthcare.ifit
 
 import android.app.TimePickerDialog
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.Button
@@ -22,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import java.util.Calendar
 
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun TimeSetter(){
 
@@ -57,6 +59,8 @@ fun TimeSetter(){
 
         // Display selected time
         Text(text = "Selected Time: ${mTime.value}", fontSize = 30.sp)
+
+
     }
 }
 
@@ -65,6 +69,6 @@ fun TimeSetter(){
 @Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
-    TimeSetter()
+ //   TimeSetter(context = )
 }
 
