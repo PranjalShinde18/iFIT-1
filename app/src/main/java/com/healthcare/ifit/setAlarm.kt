@@ -6,7 +6,7 @@ import android.content.Context
 import android.content.Intent
 
 fun setAlarm(context: Context) {
-    val timeSec = System.currentTimeMillis()
+    val timeSec = System.currentTimeMillis() + 5000
 //    val calendar = Calendar.getInstance()
 //    calendar.timeInMillis = System.currentTimeMillis()
 //    println(System.currentTimeMillis())
