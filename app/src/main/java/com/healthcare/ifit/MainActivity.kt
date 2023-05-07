@@ -32,6 +32,7 @@ import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
 import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
 import com.healthcare.ifit.mentalhealth.ui.MentalScreen
 import com.healthcare.ifit.model.SignInViewModel
+import com.healthcare.ifit.sleeptracker.JetLaggedScreen
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
 
@@ -140,7 +141,7 @@ class MainActivity : ComponentActivity() {
                                 },
 
                                 onSleep = {
-
+                                          navController.navigate("sleeptracker")
                                 },
 
 
@@ -226,6 +227,11 @@ class MainActivity : ComponentActivity() {
                             BMIScreen(
                                 viewModel = viewModel()
                             )
+
+                        }
+
+                        composable("sleeptracker"){
+                            JetLaggedScreen()
                         }
 
                         composable("water"){
