@@ -13,5 +13,9 @@
     <string name="reminders_notification_channel_id">rahul\n</string>
     <string name="reminders_notification_channel_name">rahul</string>
     <string name="aaaa">segsrgr</string>
+    <string name="home">Home</string>
+    <string name="workout">Workout</string>
+    <string name="meditation">Meditation</string>
+    <string name="profile">Profile</string>
 </resources>
 

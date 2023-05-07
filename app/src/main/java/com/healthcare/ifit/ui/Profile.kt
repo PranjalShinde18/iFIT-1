@@ -1,29 +1,24 @@
-package com.healthcare.ifit
+package com.healthcare.ifit.ui
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material.BottomAppBar
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Call
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material.icons.filled.ThumbUp
@@ -33,101 +28,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
+import com.healthcare.ifit.UserData
 import com.healthcare.ifit.model.DataViewModel
+
+
+
 
 
 @Composable
 fun ProfileScreen(
-    onHomeSc: () -> Unit,
-    onPHSc: () -> Unit,
-    onMHSc: () -> Unit,
-    onPrSc: () -> Unit,
     onSignOut: () -> Unit,
     updateProfile: () -> Unit,
     userData: UserData?,
-
-) {
-    Scaffold(
-        bottomBar = {
-            BottomAppBar(
-                modifier = Modifier
-                    .height(80.dp),
-                backgroundColor = MaterialTheme.colors.background
-            ) { ->
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.home),
-                        contentDescription = "Home",
-                        tint = Color.White,
-                        modifier = Modifier.size(40.dp)
-                            .clickable { onHomeSc?.invoke() }
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.workout),
-                        contentDescription = "Workout",
-                        tint = Color.White,
-                        modifier = Modifier.size(40.dp)
-                            .clickable { onPHSc?.invoke() }
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.medition),
-                        contentDescription = "Meditation",
-                        tint = Color.White,
-                        modifier = Modifier.size(40.dp)
-                            .clickable { onMHSc?.invoke() }
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.profile),
-                        contentDescription = "Profile",
-                        tint = Color.White,
-                        modifier = Modifier.size(40.dp)
-                            .clickable { onPrSc?.invoke() }
-                    )
-                }
-            }
-        }
-    ) {
-        it
-
-        Profile(
-            onHomeSc = onHomeSc,
-            onPHSc = onPHSc,
-            onMHSc = onMHSc,
-            onPrSc = onPrSc,
-            onSignOut = onSignOut,
-            updateProfile = updateProfile,
-            userData = userData
-        )
-    }
-}
-
-
-
-
-
-
-
-@Composable
-fun Profile(
-    onHomeSc: () -> Unit,
-    onPHSc: () -> Unit,
-    onMHSc: () -> Unit,
-    onPrSc: () -> Unit,
-    onSignOut: () -> Unit,
-    updateProfile: () -> Unit,
-    userData: UserData?,
-
     dataViewModel: DataViewModel = viewModel()
-
 ) {
 
     val getData = dataViewModel.state.value

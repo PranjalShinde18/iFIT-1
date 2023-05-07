@@ -1,4 +1,4 @@
-package com.healthcare.ifit
+package com.healthcare.ifit.ui
 
 import android.content.ContentValues.TAG
 import android.util.Log
@@ -28,7 +28,7 @@ import com.google.firebase.ktx.Firebase
 
 
 @Composable
-fun InputScreenn(
+fun InputScreen(
     onDataInserted: () -> Unit
 ) {
     var name  by remember { mutableStateOf("") }
