@@ -98,7 +98,7 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = IFitScreen.SignIn.name,
+                        startDestination = IFitScreen.Home.name,
                         modifier = Modifier.padding(it)
                     ) {
 
