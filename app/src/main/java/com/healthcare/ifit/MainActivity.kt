@@ -106,105 +106,8 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-
-
-
-//                        composable("sign_in") {
-//                            val viewModel = viewModel<SignInViewModel>()
-//                            val state by viewModel.state.collectAsStateWithLifecycle()
-//                            val launcher = rememberLauncherForActivityResult(
-//                                contract = ActivityResultContracts.StartIntentSenderForResult(),
-//                                onResult = { result ->
-//                                    if(result.resultCode == RESULT_OK) {
-//                                        lifecycleScope.launch {
-//                                            val signInResult = googleAuthUiClient.signInWithIntent(
-//                                                intent = result.data ?: return@launch
-//                                            )
-//                                            viewModel.onSignInResult(signInResult)
-//                                        }
-//                                    }
-//                                }
-//                            )
-//                            LaunchedEffect(key1 = Unit) {
-//                                if(googleAuthUiClient.getSignedInUser() != null) {
-//                                    val uid = FirebaseAuth.getInstance().currentUser?.uid
-//                                    if(uid != null) {
-//                                        val db = FirebaseFirestore.getInstance()
-//                                        val userDocRef = db.collection("User").document(uid)
-//                                        userDocRef.get().addOnCompleteListener { task ->
-//                                            if(task.isSuccessful) {
-//                                                val document = task.result
-//                                                if(document != null && document.exists()) {
-//                                                    navController.navigate("homescreen") {
-//                                                        popUpTo("sign_in") { inclusive = true }
-//                                                    }
-//                                                } else {
-//                                                    navController.navigate("inpscr") {
-//                                                        popUpTo("sign_in") { inclusive = true }
-//                                                    }
-//                                                }
-//                                            } else {
-//                                                // Error occurred while getting document
-//                                            }
-//                                        }
-//                                    } else {
-//                                        // User is not authenticated
-//                                    }
-//                                }
-//                            }
-//                            LaunchedEffect(key1 = state.isSignInSuccessful) {
-//                                if(state.isSignInSuccessful) {
-//                                    Toast.makeText(
-//                                        applicationContext,
-//                                        "Sign in successful",
-//                                        Toast.LENGTH_LONG
-//                                    ).show()
-//                                    navController.navigate("inpscr") {
-//                                        popUpTo("sign_in") { inclusive = true }
-//                                    }
-//                                    viewModel.resetState()
-//                                }
-//                            }
-//                            SignInScreen(
-//                                state = state,
-//                                onSignInClick = {
-//                                    lifecycleScope.launch {
-//                                        val signInIntentSender = googleAuthUiClient.signIn()
-//                                        launcher.launch(
-//                                            IntentSenderRequest.Builder(
-//                                                signInIntentSender ?: return@launch
-//                                            ).build()
-//                                        )
-//                                    }
-//                                },
-//                            )
-//                        }
-
-
-
-
-                        composable("inpscr") {
-                            InputScreenn(
-                                onDataInserted = {
-                                    navController.navigate("homescreen")
-                            }
-                            )
-                        }
-
-
                         composable("homescreen") {
                             HomeScreen(
-//                                onSignOut = {
-//                                    lifecycleScope.launch {
-//                                        googleAuthUiClient.signOut()
-//                                        Toast.makeText(
-//                                            applicationContext,
-//                                            "Signed out",
-//                                            Toast.LENGTH_LONG
-//                                        ).show()
-//                                        navController.popBackStack()
-//                                    }
-//                                },
                                 onBMIcal = {
                                     navController.navigate("bmical")
                                 },
@@ -261,25 +164,50 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
+
                         composable("ProfileScreen") {
                             ProfileScreen(
                                 onHomeSc = {
                                 navController.navigate("homescreen")
-                            },
+                                           },
                                 onPHSc = {
                                 navController.navigate("PhysicalHealth")
-                            },
+                                         },
                                 onMHSc = {
                                 navController.navigate("MentalHealth")
-                            },
+                                         },
                                 onPrSc = {
                                 navController.navigate("ProfileScreen")
-                            },
+                                         },
                                 onSignOut = {
-                                    navController.navigate("sign_in")
+                                    lifecycleScope.launch {
+                                        googleAuthUiClient.signOut()
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Signed out",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        navController.popBackStack( "sign_in" , false)
+
+                                    }
+                                },
+                                updateProfile = {
+                                    navController.navigate("inpscr")
+                                },
+
+                                userData = googleAuthUiClient.getSignedInUser(),
+                            )
+                        }
+
+
+                        composable("inpscr") {
+                            InputScreenn(
+                                onDataInserted = {
+                                    navController.navigate("homescreen")
                                 }
                             )
                         }
+
 
                         composable("PhysicalHealth") {
                             WorkoutScreen(
