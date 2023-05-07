@@ -46,6 +46,7 @@ import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
 import com.healthcare.ifit.mentalhealth.ui.MentalHealthScreen
 import com.healthcare.ifit.model.SignInViewModel
 import com.healthcare.ifit.ui.InputScreen
+import com.healthcare.ifit.ui.ProfileScreen
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
 
@@ -97,7 +98,7 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = IFitScreen.Home.name,
+                        startDestination = IFitScreen.SignIn.name,
                         modifier = Modifier.padding(it)
                     ) {
 
@@ -148,6 +149,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
+
                         composable(IFitScreen.InputScreen.name) {
                             InputScreen(
                                 onDataInserted = {
@@ -155,7 +157,6 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                         }
-
 
                         composable(IFitScreen.Home.name) {
                             HomeScreen(
@@ -172,6 +173,7 @@ class MainActivity : ComponentActivity() {
 //                                },
                                 onBMICal = {
                                     navController.navigate(IFitScreen.BMIScreen.name)
+
                                 },
                                 onWater = {
                                     navController.navigate(IFitScreen.Water.name)
@@ -196,13 +198,36 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
+
                         composable(IFitScreen.Profile.name) {
                             ProfileScreen(
                                 onSignOut = {
-                                    navController.navigate("sign_in")
+                                    lifecycleScope.launch {
+                                        googleAuthUiClient.signOut()
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Signed out",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        navController.popBackStack( IFitScreen.SignIn.name , false)
+                                    }
+                                },
+                                updateProfile = {
+                                    navController.navigate( IFitScreen.SignIn.name )
+                                },
+                                userData = googleAuthUiClient.getSignedInUser(),
+                            )
+                        }
+
+
+                        composable("inpscr") {
+                            InputScreen(
+                                onDataInserted = {
+                                    navController.navigate(IFitScreen.Home.name)
                                 }
                             )
                         }
+
 
                         composable(IFitScreen.Blog.name) {
                             BlogScreen( )
@@ -307,7 +332,7 @@ fun IFitBottomBar(
             Icon(
                 painter = painterResource(id = R.drawable.home),
                 contentDescription = stringResource(R.string.home),
-                tint =  if(currentScreen == IFitScreen.Home.name) Color.Green else Color.Gray ,
+                tint =  if(currentScreen == IFitScreen.Home.name) Color.Cyan else Color.White,
                 modifier = Modifier
                     .size(40.dp)
                     .clickable { onHomeSc.invoke() }
@@ -315,7 +340,7 @@ fun IFitBottomBar(
             Icon(
                 painter = painterResource(id = R.drawable.workout),
                 contentDescription = stringResource(R.string.workout),
-                tint = if(currentScreen == IFitScreen.Blog.name) Color.Green else Color.White,
+                tint = if(currentScreen == IFitScreen.Blog.name) Color.Cyan else Color.White,
                 modifier = Modifier
                     .size(40.dp)
                     .clickable { onBlogSc.invoke() }
@@ -323,7 +348,7 @@ fun IFitBottomBar(
             Icon(
                 painter = painterResource(id = R.drawable.medition),
                 contentDescription = stringResource(R.string.meditation),
-                tint = if(currentScreen == IFitScreen.MentalHealth.name) Color.Green else Color.White,
+                tint = if(currentScreen == IFitScreen.MentalHealth.name) Color.Cyan else Color.White,
                 modifier = Modifier
                     .size(40.dp)
                     .clickable { onMHSc.invoke() }
@@ -331,7 +356,7 @@ fun IFitBottomBar(
             Icon(
                 painter = painterResource(id = R.drawable.profile),
                 contentDescription = stringResource(R.string.profile),
-                tint = if(currentScreen == IFitScreen.Profile.name) Color.Green else Color.White,
+                tint = if(currentScreen == IFitScreen.Profile.name) Color.Cyan else Color.White,
                 modifier = Modifier
                     .size(40.dp)
                     .clickable { onPrSc.invoke() }
