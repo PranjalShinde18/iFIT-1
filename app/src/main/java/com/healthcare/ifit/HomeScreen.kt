@@ -1,5 +1,7 @@
 package com.healthcare.ifit
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -28,6 +30,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.healthcare.ifit.model.DataViewModel
+
 
 @Composable
 fun HomeScreen(
@@ -110,7 +117,11 @@ fun HomeScreenUi(
     onMedicine: () -> Unit,
     onSleep: () -> Unit,
 
+    dataViewModel: DataViewModel = viewModel()
+
 ) {
+
+    val getData = dataViewModel.state.value
 
     val state = rememberScrollState()
     LaunchedEffect(Unit) { state.animateScrollTo(100) }
@@ -141,9 +152,11 @@ fun HomeScreenUi(
                     textAlign = TextAlign.Start
                 )
 
-                Text(
-                    text = "Pts"
-                )
+                
+                Text(text = getData.name)
+
+                println(getData.name)
+
 
             }
         }
@@ -209,7 +222,7 @@ fun HomeScreenUi(
             ) {
 
                 Text(
-                    text = "Height: 180CM",
+                    text = "Height: ${getData.height}",
                     style = MaterialTheme.typography.h5,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
@@ -226,7 +239,7 @@ fun HomeScreenUi(
                 backgroundColor = MaterialTheme.colors.secondary
             ) {
                 Text(
-                    text = "Weight: 72Kg",
+                    text = "Weight: ${getData.weight}",
                     style = MaterialTheme.typography.h5,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
@@ -268,4 +281,3 @@ fun HomeScreenUi(
         }
     }
 }
-

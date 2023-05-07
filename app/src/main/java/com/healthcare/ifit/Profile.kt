@@ -18,6 +18,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.healthcare.ifit.model.DataViewModel
 
 
 @Composable
@@ -27,6 +29,7 @@ fun ProfileScreen(
     onMHSc: () -> Unit,
     onPrSc: () -> Unit,
     onSignOut: () -> Unit
+
 ) {
     Scaffold(
         bottomBar = {
@@ -94,12 +97,14 @@ fun Profile(
     onPHSc: () -> Unit,
     onMHSc: () -> Unit,
     onPrSc: () -> Unit,
-    onSignOut: () -> Unit
+    onSignOut: () -> Unit,
+
+    dataViewModel: DataViewModel = viewModel()
+
 ) {
-    // Define state variables to hold profile information
-    val name = remember { mutableStateOf("Pranjal") }
-    val age = remember { mutableStateOf(20) }
-    val gender = remember { mutableStateOf("Male") }
+
+    val getData = dataViewModel.state.value
+
 
     Surface(
         modifier = Modifier.fillMaxSize(),
@@ -124,7 +129,7 @@ fun Profile(
             Spacer(modifier = Modifier.height(16.dp))
 
             Text(
-                text = name.value,
+                text = getData.name,
                 style = MaterialTheme.typography.h5,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -133,7 +138,7 @@ fun Profile(
             Spacer(modifier = Modifier.height(8.dp))
 
             Text(
-                text = "Age: ${age.value}",
+                text = getData.age,
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
@@ -142,7 +147,7 @@ fun Profile(
             Spacer(modifier = Modifier.height(4.dp))
 
             Text(
-                text = "Gender: ${gender.value}",
+                text = getData.gender,
                 style = MaterialTheme.typography.subtitle1,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
