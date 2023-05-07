@@ -1,5 +1,7 @@
 package com.healthcare.ifit.ui
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -86,7 +88,6 @@ private fun saveUserData(
             "weight" to weight,
             "age" to age,
             "gender" to gender
-
         )
         db.collection("users")
             .document(uid)
@@ -95,12 +96,13 @@ private fun saveUserData(
                 // Data saved successfully
                 onDataInserted()
             }
-
             .addOnFailureListener { e ->
                 // Error occurred while saving data
+                Log.e(TAG, "Error writing document", e)
             }
     } else {
         // User is not authenticated
+        Log.e(TAG, "User is not authenticated")
     }
-}
 
+}
