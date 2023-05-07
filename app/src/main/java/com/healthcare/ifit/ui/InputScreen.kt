@@ -1,4 +1,4 @@
-package com.healthcare.ifit
+package com.healthcare.ifit.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -20,7 +20,7 @@ import com.google.firebase.ktx.Firebase
 
 
 @Composable
-fun InputScreenn(
+fun InputScreen(
     onDataInserted: () -> Unit
 ) {
     var name by remember { mutableStateOf("") }

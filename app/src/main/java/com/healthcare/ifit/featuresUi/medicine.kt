@@ -1,4 +1,4 @@
-package com.healthcare.ifit.features
+package com.healthcare.ifit.featuresUi
 
 import android.os.Build
 import androidx.annotation.RequiresApi
@@ -29,8 +29,6 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.healthcare.ifit.Alarm
-import com.healthcare.ifit.MyNotification
 import com.healthcare.ifit.TimeSetter
 import com.healthcare.ifit.setAlarm
 import com.healthcare.ifit.ui.theme.IFITTheme

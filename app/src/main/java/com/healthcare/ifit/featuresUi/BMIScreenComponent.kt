@@ -1,5 +1,5 @@
 
-package com.healthcare.ifit.features
+package com.healthcare.ifit.featuresUi
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
