@@ -98,10 +98,9 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = IFitScreen.Home.name,
+                        startDestination = IFitScreen.SignIn.name,
                         modifier = Modifier.padding(it)
                     ) {
-
                         composable(IFitScreen.SignIn.name) {
                             val viewModel = viewModel<SignInViewModel>()
                             val state by viewModel.state.collectAsStateWithLifecycle()
@@ -160,17 +159,7 @@ class MainActivity : ComponentActivity() {
 
                         composable(IFitScreen.Home.name) {
                             HomeScreen(
-//                                onSignOut = {
-//                                    lifecycleScope.launch {
-//                                        googleAuthUiClient.signOut()
-//                                        Toast.makeText(
-//                                            applicationContext,
-//                                            "Signed out",
-//                                            Toast.LENGTH_LONG
-//                                        ).show()
-//                                        navController.popBackStack()
-//                                    }
-//                                },
+
                                 onBMICal = {
                                     navController.navigate(IFitScreen.BMIScreen.name)
 
