@@ -1,7 +1,5 @@
 package com.healthcare.ifit
 
-
-
 import android.os.Build
 import android.os.Bundle
 import android.widget.Toast
@@ -11,60 +9,105 @@ import androidx.activity.compose.setContent
 import androidx.activity.result.IntentSenderRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.material.Surface
+import androidx.compose.material.BottomAppBar
+import androidx.compose.material.Icon
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
+import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.healthcare.ifit.features.BMIScreen
-import com.healthcare.ifit.features.Reminder
-import com.healthcare.ifit.features.WaterTracker
+import com.healthcare.ifit.featuresUi.BMIScreen
+import com.healthcare.ifit.featuresUi.Reminder
+import com.healthcare.ifit.featuresUi.WaterTracker
 import com.healthcare.ifit.mentalhealth.Timer
 import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
 import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
-import com.healthcare.ifit.mentalhealth.ui.MentalScreen
+import com.healthcare.ifit.mentalhealth.ui.MentalHealthScreen
 import com.healthcare.ifit.model.SignInViewModel
-import com.healthcare.ifit.sleeptracker.JetLaggedScreen
+import com.healthcare.ifit.ui.InputScreen
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
 
+
 class MainActivity : ComponentActivity() {
-    
+
     private val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
             context = applicationContext,
-            oneTapClient = com.google.android.gms.auth.api.identity.Identity.getSignInClient(applicationContext)
+            oneTapClient = com.google.android.gms.auth.api.identity.Identity.getSignInClient(
+                applicationContext
+            )
         )
     }
+
     @RequiresApi(Build.VERSION_CODES.Q)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        createNotificationsChannels()
-//        RemindersManager.startReminder(this)
 
-        setContent{
-            IFITTheme{
-                Surface (
-                    modifier = Modifier.fillMaxSize()
+        setContent {
+            IFITTheme {
+                val navController = rememberNavController()
+                val backStackEntry by navController.currentBackStackEntryAsState()
+
+                val currentScreen = backStackEntry?.destination?.route
+
+                Scaffold(
+                    bottomBar = {
+                        if (currentScreen != IFitScreen.SignIn.name &&
+                            currentScreen !=IFitScreen.InputScreen.name) {
+                            IFitBottomBar(
+                                onHomeSc = {
+                                    navController.popBackStack(IFitScreen.Home.name, false)
+                                },
+                                onBlogSc = {
+                                    navController.navigate(IFitScreen.Blog.name)
+                                },
+                                onMHSc = {
+                                    navController.navigate(IFitScreen.MentalHealth.name)
+                                },
+                                onPrSc = {
+                                    navController.navigate(IFitScreen.Profile.name)
+                                },
+                                currentScreen
+                            )
+                        }
+                    }
                 ) {
-                    val navController = rememberNavController()
-                    NavHost(navController = navController, startDestination = "sign_in") {
 
-                        composable("sign_in") {
+                    NavHost(
+                        navController = navController,
+                        startDestination = IFitScreen.Home.name,
+                        modifier = Modifier.padding(it)
+                    ) {
+
+                        composable(IFitScreen.SignIn.name) {
                             val viewModel = viewModel<SignInViewModel>()
                             val state by viewModel.state.collectAsStateWithLifecycle()
                             val launcher = rememberLauncherForActivityResult(
                                 contract = ActivityResultContracts.StartIntentSenderForResult(),
                                 onResult = { result ->
-                                    if(result.resultCode == RESULT_OK) {
+                                    if (result.resultCode == RESULT_OK) {
                                         lifecycleScope.launch {
                                             val signInResult = googleAuthUiClient.signInWithIntent(
                                                 intent = result.data ?: return@launch
@@ -75,18 +118,18 @@ class MainActivity : ComponentActivity() {
                                 }
                             )
                             LaunchedEffect(key1 = Unit) {
-                                if(googleAuthUiClient.getSignedInUser() != null) {
-                                    navController.navigate("homescreen")
+                                if (googleAuthUiClient.getSignedInUser() != null) {
+                                    navController.navigate(IFitScreen.Home.name)
                                 }
                             }
                             LaunchedEffect(key1 = state.isSignInSuccessful) {
-                                if(state.isSignInSuccessful) {
+                                if (state.isSignInSuccessful) {
                                     Toast.makeText(
                                         applicationContext,
                                         "Sign in successful",
                                         Toast.LENGTH_LONG
                                     ).show()
-                                    navController.navigate("inpscr")
+                                    navController.navigate(IFitScreen.InputScreen.name)
                                     viewModel.resetState()
                                 }
                             }
@@ -105,93 +148,16 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-
-
-
-//                        composable("sign_in") {
-//                            val viewModel = viewModel<SignInViewModel>()
-//                            val state by viewModel.state.collectAsStateWithLifecycle()
-//                            val launcher = rememberLauncherForActivityResult(
-//                                contract = ActivityResultContracts.StartIntentSenderForResult(),
-//                                onResult = { result ->
-//                                    if(result.resultCode == RESULT_OK) {
-//                                        lifecycleScope.launch {
-//                                            val signInResult = googleAuthUiClient.signInWithIntent(
-//                                                intent = result.data ?: return@launch
-//                                            )
-//                                            viewModel.onSignInResult(signInResult)
-//                                        }
-//                                    }
-//                                }
-//                            )
-//                            LaunchedEffect(key1 = Unit) {
-//                                if(googleAuthUiClient.getSignedInUser() != null) {
-//                                    val uid = FirebaseAuth.getInstance().currentUser?.uid
-//                                    if(uid != null) {
-//                                        val db = FirebaseFirestore.getInstance()
-//                                        val userDocRef = db.collection("User").document(uid)
-//                                        userDocRef.get().addOnCompleteListener { task ->
-//                                            if(task.isSuccessful) {
-//                                                val document = task.result
-//                                                if(document != null && document.exists()) {
-//                                                    navController.navigate("homescreen") {
-//                                                        popUpTo("sign_in") { inclusive = true }
-//                                                    }
-//                                                } else {
-//                                                    navController.navigate("inpscr") {
-//                                                        popUpTo("sign_in") { inclusive = true }
-//                                                    }
-//                                                }
-//                                            } else {
-//                                                // Error occurred while getting document
-//                                            }
-//                                        }
-//                                    } else {
-//                                        // User is not authenticated
-//                                    }
-//                                }
-//                            }
-//                            LaunchedEffect(key1 = state.isSignInSuccessful) {
-//                                if(state.isSignInSuccessful) {
-//                                    Toast.makeText(
-//                                        applicationContext,
-//                                        "Sign in successful",
-//                                        Toast.LENGTH_LONG
-//                                    ).show()
-//                                    navController.navigate("inpscr") {
-//                                        popUpTo("sign_in") { inclusive = true }
-//                                    }
-//                                    viewModel.resetState()
-//                                }
-//                            }
-//                            SignInScreen(
-//                                state = state,
-//                                onSignInClick = {
-//                                    lifecycleScope.launch {
-//                                        val signInIntentSender = googleAuthUiClient.signIn()
-//                                        launcher.launch(
-//                                            IntentSenderRequest.Builder(
-//                                                signInIntentSender ?: return@launch
-//                                            ).build()
-//                                        )
-//                                    }
-//                                },
-//                            )
-//                        }
-
-
-
-
-                        composable("inpscr") {
-                            InputScreenn(
+                        composable(IFitScreen.InputScreen.name) {
+                            InputScreen(
                                 onDataInserted = {
-                                    navController.navigate("homescreen")
-                            }
+                                    navController.navigate(IFitScreen.Home.name)
+                                }
                             )
                         }
 
 
-                        composable("homescreen") {
+                        composable(IFitScreen.Home.name) {
                             HomeScreen(
 //                                onSignOut = {
 //                                    lifecycleScope.launch {
@@ -204,100 +170,45 @@ class MainActivity : ComponentActivity() {
 //                                        navController.popBackStack()
 //                                    }
 //                                },
-                                onBMIcal = {
-                                    navController.navigate("bmical")
+                                onBMICal = {
+                                    navController.navigate(IFitScreen.BMIScreen.name)
                                 },
                                 onWater = {
-                                    navController.navigate("water")
+                                    navController.navigate(IFitScreen.Water.name)
                                 },
-                                onMedicine ={
-                                    navController.navigate("Medicine")
+                                onMedicine = {
+                                    navController.navigate(IFitScreen.Medicine.name)
                                 },
-
                                 onSleep = {
                                           navController.navigate("sleeptracker")
                                 },
-
-
-                                onHomeSc = {
-                                           navController.navigate("homescreen")
-                                },
-                                onPHSc = {
-                                         navController.navigate("PhysicalHealth")
-                                },
-                                onMHSc = {
-                                         navController.navigate("MentalHealth")
-                                },
-                                onPrSc = {
-                                         navController.navigate("ProfileScreen")
-                                },
                             )
                         }
 
-                        composable("MentalHealth"){
-                            MentalScreen(
+                        composable(IFitScreen.MentalHealth.name) {
+                            MentalHealthScreen(
                                 onMeditation = {
-                                               navController.navigate("meditate")
+                                    navController.navigate(IFitScreen.Meditation.name)
                                 },
                                 onSleep = {
-                                    navController.navigate("sleeppp")
+                                    navController.navigate(IFitScreen.Sleep.name)
                                 },
-
-                                onHomeSc = {
-                                    navController.navigate("homescreen")
-                                },
-                                onPHSc = {
-                                    navController.navigate("PhysicalHealth")
-                                },
-                                onMHSc = {
-                                    navController.navigate("MentalHealth")
-                                },
-                                onPrSc = {
-                                    navController.navigate("ProfileScreen")
-                                }
-
-
                             )
                         }
 
-                        composable("ProfileScreen") {
+                        composable(IFitScreen.Profile.name) {
                             ProfileScreen(
-                                onHomeSc = {
-                                navController.navigate("homescreen")
-                            },
-                                onPHSc = {
-                                navController.navigate("PhysicalHealth")
-                            },
-                                onMHSc = {
-                                navController.navigate("MentalHealth")
-                            },
-                                onPrSc = {
-                                navController.navigate("ProfileScreen")
-                            },
                                 onSignOut = {
                                     navController.navigate("sign_in")
                                 }
                             )
                         }
 
-                        composable("PhysicalHealth") {
-                            WorkoutScreen(
-                                onHomeSc = {
-                                    navController.navigate("homescreen")
-                                },
-                                onPHSc = {
-                                    navController.navigate("PhysicalHealth")
-                                },
-                                onMHSc = {
-                                    navController.navigate("MentalHealth")
-                                },
-                                onPrSc = {
-                                    navController.navigate("ProfileScreen")
-                                }
-                            )
+                        composable(IFitScreen.Blog.name) {
+                            Shopping( )
                         }
 
-                        composable("bmical"){
+                        composable(IFitScreen.BMIScreen.name) {
                             BMIScreen(
                                 viewModel = viewModel()
                             )
@@ -305,67 +216,54 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable("sleeptracker"){
-                            JetLaggedScreen()
+
                         }
 
-                        composable("water"){
+                        composable(IFitScreen.Water.name) {
                             WaterTracker()
                         }
 
-                        composable("Medicine"){
-                            Reminder( onHome = {
+                        composable(IFitScreen.Medicine.name) {
+                            Reminder(onHome = {
                                 navController.popBackStack()
-                            })
-                        }
-
-                        composable("medicine"){
-                            Reminder(
-                                onHome = { navController.popBackStack()
-                                }
-                            )
-                        }
-
-                        composable("inputScreen"){
-                            InputScreen(onNextClick = {
-                                navController.navigate("homescreen")
                             }
                             )
                         }
 
-                        composable("sleeppp"){
+                        composable(IFitScreen.Sleep.name) {
                             DailyMeditationScreen()
                         }
 
-                        composable("meditate"){
-//
+                        composable(IFitScreen.Meditation.name) {
+
                             MeditationScreenUi(
                                 on3min = {
-                                    navController.navigate("onthreemincall")
+                                    navController.navigate("onThreeMinCall")
                                 },
                                 on5min = {
-                                    navController.navigate("onfivemincall")
+                                    navController.navigate("onFiveMinCall")
                                 },
                                 on10min = {
-                                    navController.navigate("ontenmincall")
+                                    navController.navigate("onTenMinCall")
                                 }
                             )
                         }
 
-                        composable("onthreemincall"){
+                        composable("onThreeMinCall") {
                             Timer(
                                 totalTime = 180L * 1000L,
                                 modifier = Modifier.size(200.dp)
                             )
                         }
 
-                        composable("onfivemincall"){
+                        composable("onFiveMinCall") {
                             Timer(
                                 totalTime = 300L * 1000L,
                                 modifier = Modifier.size(200.dp)
                             )
                         }
 
-                        composable("ontenmincall"){
+                        composable("onTenMinCall") {
                             Timer(
                                 totalTime = 600L * 1000L,
                                 modifier = Modifier.size(200.dp)
@@ -376,15 +274,88 @@ class MainActivity : ComponentActivity() {
             }
         }
     }
-//    private fun createNotificationsChannels() {
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//            val channel = NotificationChannel(
-//                getString(R.string.reminders_notification_channel_id),
-//                getString(R.string.reminders_notification_channel_name),
-//                NotificationManager.IMPORTANCE_HIGH
-//            )
-//            ContextCompat.getSystemService(this, NotificationManager::class.java)
-//                ?.createNotificationChannel(channel)
-//        }
-//    }
+
+}
+
+enum class IFitScreen() {
+    SignIn,
+    InputScreen,
+    Home,
+    Blog,
+    MentalHealth,
+    Profile,
+    BMIScreen,
+    Medicine,
+    Water,
+    Meditation,
+    Sleep
+}
+
+@Composable
+fun IFitBottomBar(
+    onHomeSc: () -> Unit,
+    onBlogSc: () -> Unit,
+    onMHSc: () -> Unit,
+    onPrSc: () -> Unit,
+    currentScreen: String?
+) {
+    BottomAppBar(
+        modifier = Modifier
+            .height(80.dp),
+        backgroundColor = MaterialTheme.colors.background
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                painter = painterResource(id = R.drawable.home),
+                contentDescription = stringResource(R.string.home),
+                tint =  if(currentScreen == IFitScreen.Home.name) Color.Green else Color.Gray ,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable { onHomeSc.invoke() }
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.workout),
+                contentDescription = stringResource(R.string.workout),
+                tint = if(currentScreen == IFitScreen.Blog.name) Color.Green else Color.White,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable { onBlogSc.invoke() }
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.medition),
+                contentDescription = stringResource(R.string.meditation),
+                tint = if(currentScreen == IFitScreen.MentalHealth.name) Color.Green else Color.White,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable { onMHSc.invoke() }
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.profile),
+                contentDescription = stringResource(R.string.profile),
+                tint = if(currentScreen == IFitScreen.Profile.name) Color.Green else Color.White,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable { onPrSc.invoke() }
+            )
+        }
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun BottomBarPreview(){
+    IFITTheme() {
+        IFitBottomBar(
+            onHomeSc = { /*TODO*/ },
+            onBlogSc = { /*TODO*/ },
+            onMHSc = { /*TODO*/ },
+            onPrSc = { /*TODO*/ },
+            currentScreen = ""
+        )
+    }
+
 }

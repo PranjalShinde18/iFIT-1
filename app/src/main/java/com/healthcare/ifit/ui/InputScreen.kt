@@ -1,10 +1,12 @@
-package com.healthcare.ifit
+package com.healthcare.ifit.ui
 
 import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
@@ -15,6 +17,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
+import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
@@ -22,14 +28,16 @@ import com.google.firebase.ktx.Firebase
 
 
 @Composable
-fun InputScreenn(
+fun InputScreen(
     onDataInserted: () -> Unit
 ) {
-    var name by remember { mutableStateOf("") }
+    var name  by remember { mutableStateOf("") }
     var height by remember { mutableStateOf("") }
     var weight by remember { mutableStateOf("") }
     var age by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
+
+    val focusManager = LocalFocusManager.current
 
     Column(
         modifier = Modifier.padding(16.dp),
@@ -38,23 +46,46 @@ fun InputScreenn(
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
-            label = { Text("Name") }
+            label = { Text("Name") },
+
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Text,imeAction = ImeAction.Next),
+
+            keyboardActions = KeyboardActions(
+                onNext = {focusManager.moveFocus(FocusDirection.Down)}
+            )
+
         )
         OutlinedTextField(
             value = height,
             onValueChange = { height = it },
-            label = { Text("Height") }
+            label = { Text("Height") },
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number,imeAction = ImeAction.Next),
+
+            keyboardActions = KeyboardActions(
+                onNext = {focusManager.moveFocus(FocusDirection.Down)}
+            )
         )
         OutlinedTextField(
             value = weight,
             onValueChange = { weight = it },
-            label = { Text("Weight") }
+            label = { Text("Weight") },
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number,imeAction = ImeAction.Next),
+
+            keyboardActions = KeyboardActions(
+                onNext = {focusManager.moveFocus(FocusDirection.Down)}
+            )
         )
         OutlinedTextField(
             value = age,
             onValueChange = { age = it },
-            label = { Text("Age") }
+            label = { Text("Age") },
+            keyboardOptions = KeyboardOptions.Default.copy(keyboardType = KeyboardType.Number,imeAction = ImeAction.Next),
+
+            keyboardActions = KeyboardActions(
+                onNext = {focusManager.moveFocus(FocusDirection.Down)}
+            )
         )
+
         OutlinedTextField(
             value = gender,
             onValueChange = { gender = it },

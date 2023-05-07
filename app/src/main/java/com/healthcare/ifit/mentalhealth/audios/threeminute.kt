@@ -61,11 +61,11 @@ fun playAudio(context: Context)
         Row() {
 
             IconButton(onClick = { mp.start() }, modifier = Modifier.size(35.dp)) {
-                Icon(painter = painterResource(id = R.drawable.four), contentDescription = "")
+                Icon(painter = painterResource(id = R.drawable.zero), contentDescription = "")
             }
 
             IconButton(onClick = { mp.pause() }, modifier = Modifier.size(35.dp)) {
-                Icon(painter = painterResource(id = R.drawable.four), contentDescription = "")
+                Icon(painter = painterResource(id = R.drawable.zero), contentDescription = "")
             }
         }
     }

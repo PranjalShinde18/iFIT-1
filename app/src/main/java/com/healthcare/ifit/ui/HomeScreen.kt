@@ -36,83 +36,10 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.healthcare.ifit.model.DataViewModel
 
 
+
 @Composable
 fun HomeScreen(
-
-//  onSignOut: () -> Unit,
-    onBMIcal: ()-> Unit,
-    onWater: ()-> Unit,
-    onMedicine: () -> Unit,
-    onSleep: () -> Unit,
-
-    onHomeSc: () -> Unit,
-    onPHSc: () -> Unit,
-    onMHSc: () -> Unit,
-    onPrSc: () -> Unit
-
-) {
-    Scaffold(
-        bottomBar = {
-            BottomAppBar(
-                modifier = Modifier
-                    .height(80.dp),
-                backgroundColor = MaterialTheme.colors.background
-            ) {
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.home),
-                        contentDescription = "Home",
-                        tint = Color.White,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clickable { onHomeSc.invoke() }
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.workout),
-                        contentDescription = "Workout",
-                        tint = Color.White,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clickable { onPHSc.invoke() }
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.medition),
-                        contentDescription = "Meditation",
-                        tint = Color.White,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clickable { onMHSc.invoke() }
-                    )
-                    Icon(
-                        painter = painterResource(id = R.drawable.profile),
-                        contentDescription = "Profile",
-                        tint = Color.White,
-                        modifier = Modifier
-                            .size(40.dp)
-                            .clickable { onPrSc.invoke() }
-                    )
-                }
-            }
-        }
-    ) {
-        it
-        HomeScreenUi(
-            onBMIcal=onBMIcal,
-            onWater = onWater,
-            onMedicine = onMedicine,
-            onSleep = onSleep
-        )
-    }
-
-}
-
-@Composable
-fun HomeScreenUi(
-    onBMIcal: ()-> Unit,
+    onBMICal: ()-> Unit,
     onWater: ()-> Unit,
     onMedicine: () -> Unit,
     onSleep: () -> Unit,
@@ -253,7 +180,7 @@ fun HomeScreenUi(
                 .padding(start = 16.dp, end = 16.dp)
                 .fillMaxWidth()
                 .height(80.dp)
-                .clickable { onBMIcal.invoke() },
+                .clickable { onBMICal.invoke() },
             //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.primary
         ) {
