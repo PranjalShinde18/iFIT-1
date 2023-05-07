@@ -395,8 +395,8 @@ fun BestSellerItems() {
             BestSellerItem(
                 imagePainter = painterResource(id = R.drawable.whey),
                 title = "Muscle Blaze Raw Whey",
-                price = "1800",
-                discountPercent = 10,
+                price = "2299",
+                discountPercent = 26,
                 context = context,
                 intent = remember{ Intent( Intent.ACTION_VIEW, Uri.parse("https://www.muscleblaze.com/sv/muscleblaze-80-raw-whey-protein-supplement-powder/SP-40454?navKey=VRNT-77192&itracker=w:menuLanding||;p:4|;e:77192|;")) }
             )
@@ -404,8 +404,8 @@ fun BestSellerItems() {
         item {
             BestSellerItem(
                 imagePainter = painterResource(id = R.drawable.euphoria),
-                title = "Euphoria 2.0",
-                price = "2000",
+                title = "Euphoria 2.0 Pre-Workouts",
+                price = "4999",
                 discountPercent = 5,
                 context = context,
                 intent = remember{ Intent( Intent.ACTION_VIEW, Uri.parse("https://euphoriapre.com/collections/types?q=pre-workout")) }
@@ -415,8 +415,8 @@ fun BestSellerItems() {
             BestSellerItem(
                 imagePainter = painterResource(id = R.drawable.creatine),
                 title = "Atom Flavored Creatine",
-                price = "4.76",
-                discountPercent = 20,
+                price = "1011",
+                discountPercent = 25,
                 context = context,
                 intent = remember{ Intent( Intent.ACTION_VIEW, Uri.parse("https://asitisnutrition.com/products/pre-work-out-in-india")) }
             )

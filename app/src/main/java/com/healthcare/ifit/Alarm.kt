@@ -31,7 +31,7 @@ class Alarm() : BroadcastReceiver() {
 
         val builder = NotificationCompat.Builder(context, channelId)
             .setContentTitle("iFIT")
-            .setContentText("This is time for dole650" )
+            .setContentText("This is time for Dolo 650" )
             .setSmallIcon(R.drawable.ifit)
             .setAutoCancel(true)
 
