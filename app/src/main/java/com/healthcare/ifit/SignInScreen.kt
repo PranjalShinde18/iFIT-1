@@ -2,16 +2,12 @@ package com.healthcare.ifit
 
 import android.widget.Toast
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.Button
-import androidx.compose.material.OutlinedTextField
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -26,14 +22,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import com.healthcare.ifit.realtimedb.Name
-import com.healthcare.ifit.realtimedb.User
 import com.healthcare.ifit.uiState.SignInState
 
 @Composable
 fun SignInScreen(
     state: SignInState,
-    toinputscreen :() -> Unit,
     onSignInClick: () -> Unit
 ) {
 
@@ -73,58 +66,6 @@ fun SignInScreen(
                 .weight(1f, fill = true)
                 .wrapContentSize(Alignment.Center)
         )
-        Column(
-            verticalArrangement = Arrangement.spacedBy(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            OutlinedTextField(
-                value = username,
-                onValueChange = {username = it},
-                label = {
-                    Text(text = "Name")
-                },
-
-                )
-            Spacer(modifier = Modifier.height(0.dp))
-            OutlinedTextField(
-                value = userpassword,
-                onValueChange = {userpassword = it},
-                label = {
-                    Text(text = "Password")
-                },
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-
-        }
-
-        Button(
-            onClick = {
-                if (username.isNotEmpty() && userpassword.isNotEmpty()) {
-
-                    val userinfo = Name(username,userpassword)
-
-                    myRef.child(username).setValue(userinfo).addOnSuccessListener {
-                        username = ""
-                        userpassword = ""
-
-                        Toast.makeText(context,"Sign in Successful",Toast.LENGTH_LONG).show()
-
-                        toinputscreen()
-
-                    }
-                        .addOnFailureListener {
-                            Toast.makeText(context,"Sign in Unsuccessful",Toast.LENGTH_LONG).show()
-                        }
-
-
-                } else {
-                    Toast.makeText(context,"Pls insert values" ,Toast.LENGTH_LONG).show()
-                }
-            }
-
-        ) {
-            Text(text = "SignIn")
-        }
 
         Button(onClick = onSignInClick) {
             Text(text = "Sign in With Google")

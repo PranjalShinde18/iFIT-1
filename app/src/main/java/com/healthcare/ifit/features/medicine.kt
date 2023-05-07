@@ -159,7 +159,7 @@ fun Reminder(
                         }
                     }
                 }
-              //=   Spacer(modifier = Modifier.height(8.dp))
+    //=   Spacer(modifier = Modifier.height(8.dp))
                 TimeSetter()
                 Button(onClick = {
                                  setAlarm(context)

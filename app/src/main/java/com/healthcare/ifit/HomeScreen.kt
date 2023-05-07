@@ -1,5 +1,7 @@
 package com.healthcare.ifit
 
+import android.content.ContentValues.TAG
+import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -27,9 +29,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.healthcare.ifit.ui.theme.IFITTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.healthcare.ifit.model.DataViewModel
+
 
 @Composable
 fun HomeScreen(
@@ -96,9 +101,9 @@ fun HomeScreen(
     ) {
         it
         HomeScreenUi(
-        onBMIcal=onBMIcal,
-        onWater = onWater,
-        onMedicine = onMedicine,
+            onBMIcal=onBMIcal,
+            onWater = onWater,
+            onMedicine = onMedicine,
             onSleep = onSleep
         )
     }
@@ -112,7 +117,12 @@ fun HomeScreenUi(
     onMedicine: () -> Unit,
     onSleep: () -> Unit,
 
+    dataViewModel: DataViewModel = viewModel()
+
 ) {
+
+    val getData = dataViewModel.state.value
+
     val state = rememberScrollState()
     LaunchedEffect(Unit) { state.animateScrollTo(100) }
     Column(
@@ -142,10 +152,12 @@ fun HomeScreenUi(
                     textAlign = TextAlign.Start
                 )
 
-                Text(
-                    text = "Pranjal Shinde!!",
-                    style = MaterialTheme.typography.h4
-                )
+                
+                Text(text = getData.name)
+
+                println(getData.name)
+
+
             }
         }
 
@@ -153,8 +165,8 @@ fun HomeScreenUi(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-         //       .weight(1.5f, true),
-            horizontalArrangement = Arrangement.spacedBy(16.dp,Alignment.CenterHorizontally),
+            //       .weight(1.5f, true),
+            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Card(
@@ -190,13 +202,13 @@ fun HomeScreenUi(
             }
 
         }
-      //  Spacer(modifier = Modifier.height(2.dp))
+        //  Spacer(modifier = Modifier.height(2.dp))
         Row(
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(start = 16.dp, end = 16.dp),
-        //        .weight(1.5f, true),
-            horizontalArrangement = Arrangement.spacedBy(16.dp,Alignment.CenterHorizontally),
+            //        .weight(1.5f, true),
+            horizontalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterHorizontally),
             verticalAlignment = Alignment.CenterVertically
         ) {
 
@@ -209,13 +221,13 @@ fun HomeScreenUi(
                 backgroundColor = MaterialTheme.colors.secondary
             ) {
 
-                    Text(
-                        text = "Height: 180CM",
-                        style = MaterialTheme.typography.h5,
-                        textAlign = TextAlign.Center,
-                        fontWeight = FontWeight.Bold,
-                        modifier = Modifier.padding(16.dp)
-                    )
+                Text(
+                    text = "Height: ${getData.height}",
+                    style = MaterialTheme.typography.h5,
+                    textAlign = TextAlign.Center,
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(16.dp)
+                )
             }
 
             Card(
@@ -227,7 +239,7 @@ fun HomeScreenUi(
                 backgroundColor = MaterialTheme.colors.secondary
             ) {
                 Text(
-                    text = "Weight: 72Kg",
+                    text = "Weight: ${getData.weight}",
                     style = MaterialTheme.typography.h5,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
@@ -242,7 +254,7 @@ fun HomeScreenUi(
                 .fillMaxWidth()
                 .height(80.dp)
                 .clickable { onBMIcal.invoke() },
-        //        .weight(1f, false),
+            //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.primary
         ) {
             Icon(
@@ -258,7 +270,7 @@ fun HomeScreenUi(
                 .fillMaxWidth()
                 .height(80.dp)
                 .clickable { onWater.invoke() },
-        //        .weight(1f, false),
+            //        .weight(1f, false),
             backgroundColor = MaterialTheme.colors.secondary
         ) {
             Icon(
@@ -266,24 +278,6 @@ fun HomeScreenUi(
                 contentDescription = null,
                 modifier = Modifier.padding(8.dp)
             )
-        }
-    }
-}
-
-@Preview
-@Composable
-fun HomeScreenPreview() {
-    IFITTheme {
-        HomeScreen(
- //         onSignOut = { /*TODO*/ },
-            onBMIcal = { /*TODO*/ },
-            onWater = { /*TODO*/ },
-            onMedicine = { /*TODO*/ },
-            onSleep = { /*TODO*/ },
-            onHomeSc = { /*TODO*/ },
-            onPHSc = { /*TODO*/ },
-            onMHSc = { /*TODO*/ }) {
-            
         }
     }
 }
