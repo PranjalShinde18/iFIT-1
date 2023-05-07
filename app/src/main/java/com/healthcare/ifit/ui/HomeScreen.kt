@@ -29,13 +29,25 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.healthcare.ifit.model.DataViewModel
+import com.healthcare.ifit.ui.theme.IFITTheme
 
-
+@Preview
+@Composable
+fun HomeScreenPreview() {
+    IFITTheme() {
+        HomeScreen(
+            onBMICal = { /*TODO*/ },
+            onWater = { /*TODO*/ },
+            onMedicine = { /*TODO*/ },
+            onSleep = { /*TODO*/ })
+    }
+}
 
 @Composable
 fun HomeScreen(
@@ -80,7 +92,11 @@ fun HomeScreen(
                 )
 
                 
-                Text(text = getData.name)
+                Text(
+                    text = getData.name ,
+                    style = MaterialTheme.typography.h4,
+                    fontWeight = FontWeight.W300,
+                    textAlign = TextAlign.Start)
 
                 println(getData.name)
 
@@ -149,7 +165,7 @@ fun HomeScreen(
             ) {
 
                 Text(
-                    text = "Height: ${getData.height}",
+                    text = "Height:    ${getData.height}",
                     style = MaterialTheme.typography.h5,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
@@ -166,7 +182,7 @@ fun HomeScreen(
                 backgroundColor = MaterialTheme.colors.secondary
             ) {
                 Text(
-                    text = "Weight: ${getData.weight}",
+                    text = "Weight:    ${getData.weight}",
                     style = MaterialTheme.typography.h5,
                     textAlign = TextAlign.Center,
                     fontWeight = FontWeight.Bold,
