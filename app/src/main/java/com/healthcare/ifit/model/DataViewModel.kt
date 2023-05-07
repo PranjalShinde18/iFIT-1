@@ -35,22 +35,25 @@ suspend fun getDataFromFireStore() : User{
 
     val db = FirebaseFirestore.getInstance()
 
-//    val currentUser = FirebaseAuth.getInstance().currentUser
-//    val currentUserId = currentUser?.uid
+    val currentUser = FirebaseAuth.getInstance().currentUser
+    val currentUserId = currentUser?.uid
 
     var users = User()
 
     try {
-        db.collection("users").get().await().map{
+        if (currentUserId != null) {
+            val documentSnapshot = db
+                .collection("users")
+                .document(currentUserId)
+                .get()
+                .await()
 
-            val result = it .toObject(User::class.java)
-
-            users = result
-
+            val result = documentSnapshot.toObject(User::class.java)
+            if (result != null) {
+                users = result
+            }
         }
-    }
-
-    catch (e: FirebaseFirestoreException){
+    } catch (e: FirebaseFirestoreException) {
         Log.d("error","getDataFromFireStore: $e")
     }
 
