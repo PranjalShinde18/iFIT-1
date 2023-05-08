@@ -5,5 +5,7 @@ data class User(
     var age: String= "",
     var gender: String= "",
     var height: String= "",
-    var weight: String= ""
+    var weight: String= "",
+    var medName: String= "",
+    var medUnits : String= ""
 )

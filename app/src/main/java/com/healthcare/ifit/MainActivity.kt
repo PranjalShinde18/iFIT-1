@@ -46,6 +46,7 @@ import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
 import com.healthcare.ifit.mentalhealth.ui.MentalHealthScreen
 import com.healthcare.ifit.model.SignInViewModel
 import com.healthcare.ifit.ui.InputScreen
+import com.healthcare.ifit.ui.ProfileScreen
 import com.healthcare.ifit.ui.theme.IFITTheme
 import kotlinx.coroutines.launch
 
@@ -97,10 +98,9 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = IFitScreen.Home.name,
+                        startDestination = IFitScreen.SignIn.name,
                         modifier = Modifier.padding(it)
                     ) {
-
                         composable(IFitScreen.SignIn.name) {
                             val viewModel = viewModel<SignInViewModel>()
                             val state by viewModel.state.collectAsStateWithLifecycle()
@@ -148,6 +148,7 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
+
                         composable(IFitScreen.InputScreen.name) {
                             InputScreen(
                                 onDataInserted = {
@@ -156,22 +157,12 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
-
                         composable(IFitScreen.Home.name) {
                             HomeScreen(
-//                                onSignOut = {
-//                                    lifecycleScope.launch {
-//                                        googleAuthUiClient.signOut()
-//                                        Toast.makeText(
-//                                            applicationContext,
-//                                            "Signed out",
-//                                            Toast.LENGTH_LONG
-//                                        ).show()
-//                                        navController.popBackStack()
-//                                    }
-//                                },
+
                                 onBMICal = {
                                     navController.navigate(IFitScreen.BMIScreen.name)
+
                                 },
                                 onWater = {
                                     navController.navigate(IFitScreen.Water.name)
@@ -180,7 +171,7 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate(IFitScreen.Medicine.name)
                                 },
                                 onSleep = {
-
+                                          navController.navigate("sleeptracker")
                                 },
                             )
                         }
@@ -196,22 +187,50 @@ class MainActivity : ComponentActivity() {
                             )
                         }
 
+
                         composable(IFitScreen.Profile.name) {
                             ProfileScreen(
                                 onSignOut = {
-                                    navController.navigate("sign_in")
+                                    lifecycleScope.launch {
+                                        googleAuthUiClient.signOut()
+                                        Toast.makeText(
+                                            applicationContext,
+                                            "Signed out",
+                                            Toast.LENGTH_LONG
+                                        ).show()
+                                        navController.popBackStack( IFitScreen.SignIn.name ,false)
+                                    }
+                                },
+                                updateProfile = {
+                                    navController.navigate( IFitScreen.InputScreen.name )
+                                },
+                                userData = googleAuthUiClient.getSignedInUser(),
+                            )
+                        }
+
+
+                        composable("inpscr") {
+                            InputScreen(
+                                onDataInserted = {
+                                    navController.navigate(IFitScreen.Home.name)
                                 }
                             )
                         }
 
+
                         composable(IFitScreen.Blog.name) {
-                            BlogScreen( )
+                            Shopping( )
                         }
 
                         composable(IFitScreen.BMIScreen.name) {
                             BMIScreen(
                                 viewModel = viewModel()
                             )
+
+                        }
+
+                        composable("sleeptracker"){
+
                         }
 
                         composable(IFitScreen.Water.name) {
@@ -307,31 +326,31 @@ fun IFitBottomBar(
             Icon(
                 painter = painterResource(id = R.drawable.home),
                 contentDescription = stringResource(R.string.home),
-                tint =  if(currentScreen == IFitScreen.Home.name) Color.Green else Color.Gray ,
+                tint =  if(currentScreen == IFitScreen.Home.name) Color.Cyan else Color.White,
                 modifier = Modifier
                     .size(40.dp)
                     .clickable { onHomeSc.invoke() }
             )
             Icon(
-                painter = painterResource(id = R.drawable.workout),
-                contentDescription = stringResource(R.string.workout),
-                tint = if(currentScreen == IFitScreen.Blog.name) Color.Green else Color.White,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable { onBlogSc.invoke() }
-            )
-            Icon(
                 painter = painterResource(id = R.drawable.medition),
                 contentDescription = stringResource(R.string.meditation),
-                tint = if(currentScreen == IFitScreen.MentalHealth.name) Color.Green else Color.White,
+                tint = if(currentScreen == IFitScreen.MentalHealth.name) Color.Cyan else Color.White,
                 modifier = Modifier
                     .size(40.dp)
                     .clickable { onMHSc.invoke() }
             )
             Icon(
+                painter = painterResource(id = R.drawable.shopping),
+                contentDescription = stringResource(R.string.shopping),
+                tint = if(currentScreen == IFitScreen.Blog.name) Color.Cyan else Color.White,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable { onBlogSc.invoke() }
+            )
+            Icon(
                 painter = painterResource(id = R.drawable.profile),
                 contentDescription = stringResource(R.string.profile),
-                tint = if(currentScreen == IFitScreen.Profile.name) Color.Green else Color.White,
+                tint = if(currentScreen == IFitScreen.Profile.name) Color.Cyan else Color.White,
                 modifier = Modifier
                     .size(40.dp)
                     .clickable { onPrSc.invoke() }

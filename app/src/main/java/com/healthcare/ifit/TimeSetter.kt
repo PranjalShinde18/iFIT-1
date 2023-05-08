@@ -5,6 +5,7 @@ import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -50,17 +52,28 @@ fun TimeSetter(){
 
         // On button click, TimePicker is
         // displayed, user can select a time
-        Button(onClick = { mTimePickerDialog.show() }, colors = ButtonDefaults.buttonColors(backgroundColor = Color(0XFF0F9D58))) {
-            Text(text = "Open Time Picker", color = Color.White)
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+
+            Button(
+                onClick = { mTimePickerDialog.show() },
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color.Cyan)
+            ) {
+                Text(text = "Select Time", color = Color.Black)
+            }
+
+
+            // Display selected time
+            Text(text = "Selected Time: ${mTime.value}", fontSize = 16.sp,
+                modifier = Modifier
+                    .align(Alignment.CenterVertically)
+            )
+
         }
-
-        // Add a spacer of 100dp
-        Spacer(modifier = Modifier.size(24.dp))
-
-        // Display selected time
-        Text(text = "Selected Time: ${mTime.value}", fontSize = 30.sp)
-
-
     }
 }
 
