@@ -198,11 +198,11 @@ class MainActivity : ComponentActivity() {
                                             "Signed out",
                                             Toast.LENGTH_LONG
                                         ).show()
-                                        navController.popBackStack( IFitScreen.SignIn.name , false)
+                                        navController.popBackStack( IFitScreen.SignIn.name ,false)
                                     }
                                 },
                                 updateProfile = {
-                                    navController.navigate( IFitScreen.SignIn.name )
+                                    navController.navigate( IFitScreen.InputScreen.name )
                                 },
                                 userData = googleAuthUiClient.getSignedInUser(),
                             )
@@ -332,20 +332,20 @@ fun IFitBottomBar(
                     .clickable { onHomeSc.invoke() }
             )
             Icon(
-                painter = painterResource(id = R.drawable.workout),
-                contentDescription = stringResource(R.string.workout),
-                tint = if(currentScreen == IFitScreen.Blog.name) Color.Cyan else Color.White,
-                modifier = Modifier
-                    .size(40.dp)
-                    .clickable { onBlogSc.invoke() }
-            )
-            Icon(
                 painter = painterResource(id = R.drawable.medition),
                 contentDescription = stringResource(R.string.meditation),
                 tint = if(currentScreen == IFitScreen.MentalHealth.name) Color.Cyan else Color.White,
                 modifier = Modifier
                     .size(40.dp)
                     .clickable { onMHSc.invoke() }
+            )
+            Icon(
+                painter = painterResource(id = R.drawable.shopping),
+                contentDescription = stringResource(R.string.shopping),
+                tint = if(currentScreen == IFitScreen.Blog.name) Color.Cyan else Color.White,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clickable { onBlogSc.invoke() }
             )
             Icon(
                 painter = painterResource(id = R.drawable.profile),
