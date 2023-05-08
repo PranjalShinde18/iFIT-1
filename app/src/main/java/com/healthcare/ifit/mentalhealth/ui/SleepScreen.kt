@@ -23,17 +23,12 @@ import androidx.compose.ui.unit.sp
 import com.healthcare.ifit.R
 import com.healthcare.ifit.ui.theme.IFITTheme
 
-
-@Preview
 @Composable
-fun DailyMeditationScreenPreview(){
-    IFITTheme {
-        DailyMeditationScreenPreview()
-    }
-}
-
-@Composable
-fun DailyMeditationScreen() {
+fun DailyMeditationScreen(
+    onTenMinAudio: () -> Unit,
+    onThirtyMinAudio: () -> Unit,
+    onSixtyMinAudio: () -> Unit
+) {
     val quotes = listOf(
         "When I go to sleep at night \n" +
                 "Bathed In starts and palest light \n" +
@@ -97,16 +92,16 @@ fun DailyMeditationScreen() {
                         horizontalArrangement = Arrangement.SpaceEvenly
                     ) {
                         Button(
-                            onClick = {},
+                            onClick = onTenMinAudio,
                             colors = ButtonDefaults.buttonColors(
                             )
                         ) {
                             Text(
-                                text = "15 min",
+                                text = "10 min",
                             )
                         }
                         Button(
-                            onClick = {},
+                            onClick = onThirtyMinAudio,
                             colors = ButtonDefaults.buttonColors(
                             )
                         ) {
@@ -115,12 +110,12 @@ fun DailyMeditationScreen() {
                             )
                         }
                         Button(
-                            onClick = {},
+                            onClick = onSixtyMinAudio,
                             colors = ButtonDefaults.buttonColors(
                             )
                         ) {
                             Text(
-                                text = "45 min",
+                                text = "60 min",
                             )
                         }
                     }

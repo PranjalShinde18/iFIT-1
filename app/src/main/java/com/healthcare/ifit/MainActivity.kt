@@ -26,6 +26,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -41,6 +42,7 @@ import com.healthcare.ifit.featuresUi.BMIScreen
 import com.healthcare.ifit.featuresUi.Reminder
 import com.healthcare.ifit.featuresUi.WaterTracker
 import com.healthcare.ifit.mentalhealth.Timer
+import com.healthcare.ifit.mentalhealth.audios.playTenMinAudio
 import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
 import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
 import com.healthcare.ifit.mentalhealth.ui.MentalHealthScreen
@@ -245,7 +247,22 @@ class MainActivity : ComponentActivity() {
                         }
 
                         composable(IFitScreen.Sleep.name) {
-                            DailyMeditationScreen()
+                            DailyMeditationScreen(
+                                onTenMinAudio = {
+                                    navController.navigate("onTenMinAudio")
+                                },
+                                onThirtyMinAudio = {
+                                    navController.navigate("onTenMinAudio")
+                                },
+                                onSixtyMinAudio = {
+                                    navController.navigate("onTenMinAudio")
+                                }
+                            )
+                        }
+
+                        composable("onTenMinAudio"){
+                            val context = LocalContext.current
+                            playTenMinAudio(context = context)
                         }
 
                         composable(IFitScreen.Meditation.name) {
