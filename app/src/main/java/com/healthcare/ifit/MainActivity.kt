@@ -47,6 +47,7 @@ import com.healthcare.ifit.mentalhealth.ui.DailyMeditationScreen
 import com.healthcare.ifit.mentalhealth.ui.MeditationScreenUi
 import com.healthcare.ifit.mentalhealth.ui.MentalHealthScreen
 import com.healthcare.ifit.model.SignInViewModel
+import com.healthcare.ifit.ui.BlogScreen
 import com.healthcare.ifit.ui.InputScreen
 import com.healthcare.ifit.ui.ProfileScreen
 import com.healthcare.ifit.ui.theme.IFITTheme
@@ -84,7 +85,7 @@ class MainActivity : ComponentActivity() {
                                     navController.popBackStack(IFitScreen.Home.name, false)
                                 },
                                 onBlogSc = {
-                                    navController.navigate(IFitScreen.Blog.name)
+                                    navController.navigate(IFitScreen.Shopping.name)
                                 },
                                 onMHSc = {
                                     navController.navigate(IFitScreen.MentalHealth.name)
@@ -186,6 +187,9 @@ class MainActivity : ComponentActivity() {
                                 onSleep = {
                                     navController.navigate(IFitScreen.Sleep.name)
                                 },
+                                onBlog = {
+                                    navController.navigate(IFitScreen.Blog.name)
+                                }
                             )
                         }
 
@@ -220,9 +224,10 @@ class MainActivity : ComponentActivity() {
                         }
 
 
-                        composable(IFitScreen.Blog.name) {
+                        composable(IFitScreen.Shopping.name) {
                             Shopping( )
                         }
+
 
                         composable(IFitScreen.BMIScreen.name) {
                             BMIScreen(
@@ -258,6 +263,10 @@ class MainActivity : ComponentActivity() {
                                     navController.navigate("onTenMinAudio")
                                 }
                             )
+                        }
+
+                        composable(IFitScreen.Blog.name){
+                            BlogScreen()
                         }
 
                         composable("onTenMinAudio"){
@@ -319,7 +328,8 @@ enum class IFitScreen() {
     Medicine,
     Water,
     Meditation,
-    Sleep
+    Sleep,
+    Shopping
 }
 
 @Composable

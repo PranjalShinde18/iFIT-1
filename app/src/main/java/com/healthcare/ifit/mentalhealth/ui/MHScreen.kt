@@ -45,6 +45,7 @@ import com.healthcare.ifit.ui.theme.IFITTheme
 fun MentalHealthScreen (
     onMeditation: () -> Unit,
     onSleep: () -> Unit,
+    onBlog: () -> Unit
 ) {
     val state = rememberScrollState()
     LaunchedEffect(Unit) { state.animateScrollTo(100) }
@@ -143,6 +144,7 @@ fun MentalHealthScreen (
                     Icon(
                         painterResource(id = R.drawable.medition) ,
                         contentDescription = "meditation",
+                        modifier = Modifier.padding(16.dp)
                     )
                 }
                 Text(text = "Meditation", style = MaterialTheme.typography.h4)
@@ -166,9 +168,34 @@ fun MentalHealthScreen (
                     Icon(
                         painterResource(id = R.drawable.sleeping),
                         contentDescription = "sleep",
+                        modifier = Modifier.padding(16.dp)
                     )
                 }
                 Text(text = "Sleep", style = MaterialTheme.typography.h4)
+            }
+        }
+
+        Card(
+            modifier = Modifier
+                .height(104.dp)
+                .aspectRatio(3f, true)
+                .align(Alignment.Start)
+                .clickable { onBlog?.invoke() }
+        ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Card(
+                    backgroundColor = MaterialTheme.colors.secondary
+                ) {
+                    Icon(
+                        painterResource(id = R.drawable.workout),
+                        contentDescription = "Blog",
+                        modifier = Modifier.padding(16.dp)
+                    )
+                }
+                Text(text = "Blog", style = MaterialTheme.typography.h4)
             }
         }
 
@@ -188,94 +215,11 @@ fun MentalHealthScreen (
             }
         }
 
-        Text(
-            text = "Blogs",
-            style = MaterialTheme.typography.h4,
-            color = Color.White
-        )
-
-        MyCard(
-            imageResource = R.drawable.on,
-            cardTitle = "WORK OUT ROUTINE",
-            cardContent = "There are may work out routine but we suggest you to have a PUSH PULL & LEGS as this is the most optimal and scientific way of training.\n" +
-                    "Lets say you do a push day(shoulders, chest and triceps) on monday then you would be training legs(Quads,hamstring and calves) on tuesday and pull(Back,Traps,Lats and biceps) on wednesday the  this continues.\n" +
-                    "Make sure to take rest when ever needed you can have a rest day after every cycle of p l p if you need.\n"
-
-        )
-
-        MyCard(
-            imageResource = R.drawable.tw,
-            cardTitle = "How to maximize performance",
-            cardContent = " There are five main points that has to be on point to maximize performance in any physical aspect that maybe strength,cardio or any other feild.\n" +
-                    "1) Sleep this is the most important as it is the time where your body heals and grows , it is the time when muscle is built. \n" +
-                    "2) Having enough protein as protein is the building block of muscles. we recommend taking 0.8g to 1.8g of protein per kg of lean body mass.\n" +
-                    "3) Dink enough water to stay hydrated as being dehydrated can lead to negative effect on your body thus not leading to optimal performance\n" +
-                    "4) Using the principle of progressive overload this principle states that we have to constantly increase the difficulty of our training so as to improve performance, Example - If you are running 1km daily then soon running 1 km won't be hard for your body as your body would have adapted to the stimuli thus you will have increase the running distance or decrease the amount of time it takes for you to complete 1km.\n" +
-                    "5) Principle of specificity this states that to improve in a particular activity the individual has to perform that activity using progressive overload and has to be consistent \n" +
-                    "THERE YOU GO NOW YOU ARE READY TO MOVE. ALL THE BEST."
-        )
-
-        MyCard(
-            imageResource = R.drawable.th,
-            cardTitle = "Arms",
-            cardContent = "For a well rounded routine,it is best to perform a variety of movements at each joint\n" +
-                    "\n" +
-                    "If you want to taring your arms,you can't just your arms.To progress with your arm exercises you also need to build strength in other parts of the body otherwise some exercise become too tough.\n"
-        )
-
-        MyCard(
-            imageResource = R.drawable.fi,
-            cardTitle = "Cardio",
-            cardContent = "Any type of exercise that gest your heart rate up.\n" +
-                    "\n" +
-                    "A stronger cardio-vascular system means more capillaries deliverying more oxygen to celss in your muscels.This enables your celss to burn more fat during both exercise and inactivity.Cardio exercise uses large muscel movemenr over a sustained period of time keeping your heart rate to at least 50% of its maximum level\n "
-        )
-
 
 
 
 
         
-    }
-}
-
-
-@Composable
-fun MyCard(imageResource: Int, cardTitle: String, cardContent: String) {
-    Card(
-        modifier = Modifier
-            .padding(8.dp)
-            .fillMaxWidth(),
-        shape = RoundedCornerShape(8.dp),
-        elevation = 4.dp,
-        backgroundColor = MaterialTheme.colors.surface
-
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            modifier = Modifier
-                //.padding(4.dp)
-                .background(color = MaterialTheme.colors.surface)
-        ) {
-            Text(
-                text = cardTitle,
-                style = MaterialTheme.typography.h6,
-                modifier = Modifier.padding(bottom = 16.dp, top = 16.dp),
-                textAlign = TextAlign.Justify
-            )
-            Image(
-                painter = painterResource(id = imageResource),
-                contentDescription = "Meditation",
-                modifier = Modifier
-                    .size(400.dp)
-                    .padding(bottom = 1.dp)
-            )
-            Text(
-                text = cardContent,
-                textAlign = TextAlign.Justify,
-                modifier = Modifier.padding(8.dp)
-            )
-        }
     }
 }
 
@@ -287,6 +231,7 @@ fun MentalScreenPreview() {
         MentalHealthScreen(
             onMeditation = { /*TODO*/ },
             onSleep = { /*TODO*/ },
+            onBlog = {}
         )
 
     }
