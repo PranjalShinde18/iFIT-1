@@ -2,9 +2,15 @@ package com.healthcare.ifit.ui
 
 import android.content.ContentValues.TAG
 import android.util.Log
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.Button
@@ -19,14 +25,24 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
+import com.healthcare.ifit.R
+import com.healthcare.ifit.ui.theme.IFITTheme
 
-
+@Preview
+@Composable
+fun PreviewInputScreen() {
+    IFITTheme() {
+        InputScreen {}
+    }
+}
 @Composable
 fun InputScreen(
     onDataInserted: () -> Unit
@@ -40,9 +56,20 @@ fun InputScreen(
     val focusManager = LocalFocusManager.current
 
     Column(
-        modifier = Modifier.padding(16.dp),
-        verticalArrangement = Arrangement.spacedBy(8.dp)
+        modifier = Modifier
+            .padding(16.dp)
+            .fillMaxSize(),
+        verticalArrangement = Arrangement.spacedBy(16.dp, Alignment.CenterVertically),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        Image(
+            painter = painterResource(id = R.drawable.ifit),
+            contentDescription = null,
+            modifier = Modifier
+                .size(200.dp)
+                .wrapContentSize(Alignment.Center)
+        )
+   //     Spacer(modifier = Modifier.height(8.dp))
         OutlinedTextField(
             value = name,
             onValueChange = { name = it },
