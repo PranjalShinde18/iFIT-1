@@ -101,7 +101,7 @@ class MainActivity : ComponentActivity() {
 
                     NavHost(
                         navController = navController,
-                        startDestination = IFitScreen.Home.name,
+                        startDestination = IFitScreen.SignIn.name,
                         modifier = Modifier.padding(it)
                     ) {
                         composable(IFitScreen.SignIn.name) {
