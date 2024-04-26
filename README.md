@@ -24,9 +24,11 @@ To run the app locally, follow these steps:
 
 1. Launch the app.
 2. Log in or create a new user profile.
-3. Explore the BMI calculator, weight tracker, and height tracker.
-4. Check out the product selling page.
+  
+
+4. Explore the BMI calculator, weight tracker, and height tracker.
+5. Check out the product selling page.
 
 ## Pics
+![test_page-0001](https://github.com/PranjalShinde18/iFIT-1/assets/114181026/a60eb0f7-6432-4e0f-a5d5-b745d837e74d)
 
-![test_page-0001](https://github.com/havalchinmay/iFIT-1/assets/125662714/4c232295-2fa6-4904-9b49-9037f3368cff)
